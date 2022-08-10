@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md" *ngFor="let obra of obras">
+    <div class="bg-image ripple hover-zoom" data-mdb-ripple-color="light">
+        <img
+          src="{{ obra.img_src }}"
+          class="img-fluid rounded w-50"
+          alt="..."
+        />
+        <a routerLink="/cotizaciones/{{obra.idObra}}">
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.4); width: 86px;">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <p class="text-white mb-0">{{obra.name}}</p>
+            </div>
+          </div>
+          <div class="hover-overlay">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+          </div>
+        </a>
+    </div>   
+  </div>
+</div>
+
+
+
+
+
