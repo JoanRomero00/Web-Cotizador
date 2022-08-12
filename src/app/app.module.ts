@@ -22,16 +22,26 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
+import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
+
+import { MatSliderModule } from '@angular/material/slider';
+
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { CotizacionComponent } from './cotizacion/cotizacion.component';
+import { StepComponent } from './step/step.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ObraComponent,
-    CotizacionComponent
+    CotizacionComponent,
+    StepComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +62,13 @@ import { CotizacionComponent } from './cotizacion/cotizacion.component';
     MdbTooltipModule,
     MdbValidationModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatStepperModule,
+    ReactiveFormsModule, 
+    MatFormFieldModule,
+    MatSliderModule,
+    MatRadioModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

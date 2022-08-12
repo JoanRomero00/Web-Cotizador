@@ -1,31 +1,61 @@
 <div *ngIf="obra">
-    <h2>{{obra.name | uppercase}} Details</h2>
+    <h2>{{obra.name | uppercase}} CONFIGURATOR</h2>
 </div>
 <br>
-<section>
-    <div class="container border border-5">
-        <div class="row text-center border" style="background-color: rgba(194, 186, 186, 0.993); height: 66px;">
-          <div class="col-md border border-dark border-5">
-            <strong>PASO 1</strong>
-          </div>
-          <div class="col-md border border-dark border-5">
-            <strong>PASO 2</strong>
-          </div>
-          <div class="col-md border border-dark border-5">
-            <strong>PASO 3</strong>
-          </div>
-          <div class="col-md border border-dark border-5">
-            <strong>PASO 4</strong>
-          </div>
-          <div class="col-md border border-dark border-5">
-            <strong>PASO 5</strong>
-          </div>
-          <div class="col-md border border-dark border-5">
-            <strong>PASO 6</strong>
-          </div>
-        </div>
-        <div class="row">
-            <img src="https://www.tecmasolutions.com/images/Virtual_NY_esterna_finale4k_2-low.jpg" alt="">
-        </div>
+<div class="container">
+<div class="row">
+  <div class="col-md-10">
+    <mat-horizontal-stepper linear>
+      <mat-step label="Step 1">
+      <img src="{{ url_foto }}" class="img-fluid" (click)="getPaso('Paso 1')">
+      <div>
+        <button class="btn btn-primary" mat-button matStepperPrevious disabled>Previous</button>
+        <button class="btn btn-primary" mat-button matStepperNext>Next</button>
       </div>
-</section>
+      </mat-step>
+      <mat-step label="Step 2" (click)="getPaso('Paso 1')">
+        <img src="{{ url_foto }}" class="img-fluid" (click)="getPaso('Paso 2')">
+        <div>
+          <button class="btn btn-primary" mat-button matStepperPrevious>Previous</button>
+          <button class="btn btn-primary" mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Step 3" (click)="getPaso('Paso 1')">
+        <img src="{{ url_foto }}" alt="" class="img-fluid" (click)="getPaso('Paso 3')">
+        <div>
+          <button class="btn btn-primary" mat-button matStepperPrevious>Previous</button>
+          <button class="btn btn-primary" mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Step 4">
+        <img src="{{ url_foto }}" alt="" class="img-fluid" (click)="getPaso('Paso 4')">
+        <div>
+          <button class="btn btn-primary" mat-button matStepperPrevious>Previous</button>
+          <button class="btn btn-primary" mat-button matStepperNext disabled>Next</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <div class="col-md-2 border border-5" style="background-color: white;">
+    <br>
+    <mark><strong><h1>OPTIONS</h1></strong></mark>
+    <div>
+      <label id="example-radio-group-label" style="text-align: left;">Pick your style: </label>
+      <br><br>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="favoriteSeason">
+          <div *ngFor="let season of seasons">
+          <mat-radio-button class="example-radio-button" [value]="season" (click)="getURL(season)">
+            {{ season }}
+          </mat-radio-button>
+          </div>
+        </mat-radio-group>
+      <br>
+      <div>Select Style: {{favoriteSeason}}</div>
+      <br>
+      <div>Price: ${{price}}</div>  
+    </div>
+  </div>
+</div>
+</div>
+<h1> {{ paso }}</h1>
+<button type="submit" (click)="onSave($event)"></button>

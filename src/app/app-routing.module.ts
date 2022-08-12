@@ -6,7 +6,7 @@ import { CotizacionComponent } from './cotizacion/cotizacion.component';
 const routes: Routes = [
   { path: 'obras', component: ObraComponent },
   { path: '', redirectTo: '/obras', pathMatch: 'full' },
-  { path: 'cotizaciones/:id', component: CotizacionComponent }
+  { path: 'cotizaciones/:id', component: CotizacionComponent },
 ];
 
 
