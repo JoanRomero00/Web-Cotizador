@@ -3,5 +3,4 @@ export interface Step {
     idObra: number;
     name: string;
     img_src: string;
-    options: string[];
   }

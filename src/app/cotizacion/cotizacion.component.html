@@ -6,33 +6,17 @@
 <div class="row">
   <div class="col-md-10">
     <mat-horizontal-stepper linear>
-      <mat-step label="Step 1">
-      <img src="{{ url_foto }}" class="img-fluid" (click)="getPaso('Paso 1')">
+      <mat-step label="{{step.name}}" *ngFor="let step of steps">
+      <img src="{{ step.img_src }}" class="img-fluid">
       <div>
-        <button class="btn btn-primary" mat-button matStepperPrevious disabled>Previous</button>
-        <button class="btn btn-primary" mat-button matStepperNext>Next</button>
+        <br><br>
+        <div class="btn-group">
+          <div *ngIf="nroPaso == 1; else elseBlock1"><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()" disabled>Previous</button></div>
+          <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
+          <div *ngIf="nroPaso == 4; else elseBlock2"><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente()" disabled>Next</button></div>
+          <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente()">Next</button></ng-template>
+        </div>
       </div>
-      </mat-step>
-      <mat-step label="Step 2" (click)="getPaso('Paso 1')">
-        <img src="{{ url_foto }}" class="img-fluid" (click)="getPaso('Paso 2')">
-        <div>
-          <button class="btn btn-primary" mat-button matStepperPrevious>Previous</button>
-          <button class="btn btn-primary" mat-button matStepperNext>Next</button>
-        </div>
-      </mat-step>
-      <mat-step label="Step 3" (click)="getPaso('Paso 1')">
-        <img src="{{ url_foto }}" alt="" class="img-fluid" (click)="getPaso('Paso 3')">
-        <div>
-          <button class="btn btn-primary" mat-button matStepperPrevious>Previous</button>
-          <button class="btn btn-primary" mat-button matStepperNext>Next</button>
-        </div>
-      </mat-step>
-      <mat-step label="Step 4">
-        <img src="{{ url_foto }}" alt="" class="img-fluid" (click)="getPaso('Paso 4')">
-        <div>
-          <button class="btn btn-primary" mat-button matStepperPrevious>Previous</button>
-          <button class="btn btn-primary" mat-button matStepperNext disabled>Next</button>
-        </div>
       </mat-step>
     </mat-horizontal-stepper>
   </div>
@@ -40,22 +24,22 @@
     <br>
     <mark><strong><h1>OPTIONS</h1></strong></mark>
     <div>
-      <label id="example-radio-group-label" style="text-align: left;">Pick your style: </label>
+      <label id="example-radio-group-label" style="text-align: left;">Pick your option: </label>
       <br><br>
-        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="favoriteSeason">
-          <div *ngFor="let season of seasons">
-          <mat-radio-button class="example-radio-button" [value]="season" (click)="getURL(season)">
-            {{ season }}
-          </mat-radio-button>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="optionSeleted">
+          <div *ngFor="let option of options">
+            <div *ngIf="nroPaso == option.idStep">
+              <mat-radio-button class="example-radio-button" [value]="option.name">
+                {{ option.name }}
+              </mat-radio-button>
+            </div>
           </div>
         </mat-radio-group>
       <br>
-      <div>Select Style: {{favoriteSeason}}</div>
+      <div>Option Seleted: {{optionSeleted}}</div>
       <br>
       <div>Price: ${{price}}</div>  
     </div>
   </div>
 </div>
 </div>
-<h1> {{ paso }}</h1>
-<button type="submit" (click)="onSave($event)"></button>

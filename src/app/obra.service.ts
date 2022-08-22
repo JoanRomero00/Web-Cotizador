@@ -21,17 +21,3 @@ export class ObraService {
     return of(OBRAS.find(obra => obra.idObra === id));
   }
 }
-
-export class StepService {
-
-  constructor() { }
-
-  // getPasos(idObra: number): Observable<Step[]> {
-  //  steps: []
-  //  for (var step in STEPS) {
-  //    if (step.search(idObra))
-  //  }
-
-  //  return of(STEPS);
-  //}
-}
