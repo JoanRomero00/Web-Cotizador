@@ -23,19 +23,22 @@ export class CotizacionComponent implements OnInit {
 
   obras: Obra[] = [];
   obra: Obra;
+  option: Option;
   steps: Step[] = [];
   options: Option[] = [];
 
 
   constructor(
     private route: ActivatedRoute,
-    private obraService: ObraService,
+    //private obraService: ObraService,
     private stepService: StepService
   ) { }
 
   ngOnInit(): void {
     this.getSteps();
     this.getOptions();
+    this.getOption(11,1,1);
+    //this.getPasoSiguiente();
   }
 
   getSteps(): void {
@@ -48,16 +51,22 @@ export class CotizacionComponent implements OnInit {
     this.stepService.getOptions(id).subscribe(options => this.options = options)
   }
 
-  getURL_render(idObra: number, idStep: number, idOption: number): void {
-          //return  this.options BUSCAR URL DEL RNEDER
+  getOption(idObra: number, idStep: number, idOption: number): void {
+    this.stepService.getOption(idObra, idStep, idOption).subscribe(option => this.option = option)
   }
 
   getPasoSiguiente(): void {
     this.nroPaso = this.nroPaso + 1
+    //this.stepService.getOption(11, this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
   }
 
   getPasoAnterior(): void {
     this.nroPaso = this.nroPaso - 1
+    //this.stepService.getOption(11, paso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
   }
+
+  /*redirectPaso(): void {
+    this.nroPaso = 1
+  }*/
 
 }

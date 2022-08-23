@@ -2,12 +2,12 @@
     <h2>{{obra.name | uppercase}} CONFIGURATOR</h2>
 </div>
 <br>
-<div class="container">
-<div class="row">
-  <div class="col-md-10">
+<div>
+<div class="row" style="justify-content: center;">
+  <div class="col-md-9">
     <mat-horizontal-stepper linear>
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
-      <img src="{{ step.img_src }}" class="img-fluid">
+      <img src="{{ optionSeleted }}" class="img-fluid">
       <div>
         <br><br>
         <div class="btn-group">
@@ -26,20 +26,28 @@
     <div>
       <label id="example-radio-group-label" style="text-align: left;">Pick your option: </label>
       <br><br>
-        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="optionSeleted">
+        <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
           <div *ngFor="let option of options">
             <div *ngIf="nroPaso == option.idStep">
-              <mat-radio-button class="example-radio-button" [value]="option.name">
-                {{ option.name }}
-              </mat-radio-button>
+              <div *ngIf="option.idOption == 1; else elseBlock3">
+                <mat-radio-button class="example-radio-button" [value]="option.img_src" [checked]="true">
+                  {{ option.name }}
+                </mat-radio-button>
+              </div>
+              <ng-template #elseBlock3>
+                <mat-radio-button class="example-radio-button" [value]="option.img_src">
+                  {{ option.name }}
+                </mat-radio-button>
+              </ng-template>
             </div>
           </div>
         </mat-radio-group>
       <br>
-      <div>Option Seleted: {{optionSeleted}}</div>
+      
       <br>
       <div>Price: ${{price}}</div>  
     </div>
   </div>
 </div>
 </div>
+<h1>{{ nroPaso }}</h1>

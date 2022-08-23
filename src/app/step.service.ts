@@ -22,6 +22,9 @@ export class StepService {
       return of(OPTIONS.filter(option => option.idObra === idObra));
     }
 
+    getOption(idObra: number, idStep: number, idOption: number): Observable<Option> {
+      return of(OPTIONS.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption));
+    }
 
   }
   
