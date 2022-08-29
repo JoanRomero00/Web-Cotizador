@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { Obra } from '../obra';
 import { ObraService } from '../obra.service';
@@ -6,6 +6,7 @@ import { StepService } from '../step.service';
 import { ActivatedRoute } from '@angular/router';
 import { Step } from '../step';
 import { Option } from '../option';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-cotizacion',
@@ -14,18 +15,24 @@ import { Option } from '../option';
 })
 export class CotizacionComponent implements OnInit {
 
-  optionSeleted: string;
+  load: boolean;
+  optionSeleted: Option;
   url_foto: string = '';
   price: number = 1111;
   paso: string = '';
-  nroPaso = 1;
+  nroPaso = 0;
   nroOption = 1;
+  cotizacion= [];
+ 
 
   obras: Obra[] = [];
   obra: Obra;
   option: Option;
   steps: Step[] = [];
   options: Option[] = [];
+
+  cantStep: number;
+
 
 
   constructor(
@@ -37,8 +44,8 @@ export class CotizacionComponent implements OnInit {
   ngOnInit(): void {
     this.getSteps();
     this.getOptions();
-    this.getOption(11,1,1);
-    //this.getPasoSiguiente();
+    this.getPasoInicio();
+    this.cantStep = this.steps.length
   }
 
   getSteps(): void {
@@ -55,18 +62,53 @@ export class CotizacionComponent implements OnInit {
     this.stepService.getOption(idObra, idStep, idOption).subscribe(option => this.option = option)
   }
 
-  getPasoSiguiente(): void {
+  getPasoInicio(): void {
     this.nroPaso = this.nroPaso + 1
-    //this.stepService.getOption(11, this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
+    this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,1);  
+    //this.stepService.getOption(+this.route.snapshot.paramMap.get('id'), this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
+    this.optionSeleted = this.option
   }
+
+  getPasoSiguiente(optionSelect: Option): void {
+    
+    if (this.cotizacion[this.nroPaso-1] === undefined) {
+      this.cotizacion.push(optionSelect)
+    }
+    else {
+      this.cotizacion[this.nroPaso-1] = optionSelect
+    }
+
+    this.nroPaso = this.nroPaso + 1
+    
+    if (this.cotizacion[this.nroPaso-1] === undefined){
+      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,1);  
+    }
+    else
+    {
+      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    }
+    
+    //this.stepService.getOption(+this.route.snapshot.paramMap.get('id'), this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
+    this.optionSeleted = this.option
+    
+    
+  }
+
 
   getPasoAnterior(): void {
     this.nroPaso = this.nroPaso - 1
-    //this.stepService.getOption(11, paso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
+    //this.stepService.getOption(11, this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
+    this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    this.optionSeleted = this.option
   }
 
-  /*redirectPaso(): void {
-    this.nroPaso = 1
-  }*/
+  getPriceTotal() {
+    var total = 0;
+    for (var a of this.cotizacion) {
+      total += a.price
+    }
+    return total
+  }
+
 
 }
