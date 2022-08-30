@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { CotizacionComponent } from './cotizacion/cotizacion.component';
 import { StepComponent } from './step/step.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { StepComponent } from './step/step.component';
     ObraComponent,
     CotizacionComponent,
     StepComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,6 @@ import { StepComponent } from './step/step.component';
     MatFormFieldModule,
     MatSliderModule,
     MatRadioModule
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

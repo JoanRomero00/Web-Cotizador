@@ -5,25 +5,91 @@
 <div>
 <div class="row" style="justify-content: center;">
   <div class="col-md-9">
-    <mat-horizontal-stepper linear>
+    <mat-horizontal-stepper>
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
-      <img src="{{ optionSeleted.img_src }}" class="img-fluid">
-      <div>
-        <br><br>
+      <img src="{{ optionSeleted.img_src }}" class="img-fluid border border-5">
+      <br><br><br>
+    
         <div class="btn-group">
           <div *ngIf="nroPaso == 1; else elseBlock1"><button class="btn btn-primary" mat-button matStepperPrevious disabled>Previous</button></div>
           <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
-          <div *ngIf="nroPaso == 4; else elseBlock2"><button class="btn btn-primary" mat-button matStepperNext disabled>Next</button></div>
+          <div *ngIf="nroPaso == cantStep; else elseBlock2">
+            
+             
+            <button class="btn btn-primary" (click)="openModal()">
+              Conclude
+            </button>
+          
+          </div>
           <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
         </div>
+  
+      <!--<div class="row">
+        
+          <div class="col-md-3">
+            <h2>Pick your option:</h2>
+          </div >  
+          <div class="col-md-6"></div>
+          <div class="col-md-3">
+            <div class="btn-group">
+              <div *ngIf="nroPaso == 1; else elseBlock1"><button class="btn btn-primary" mat-button matStepperPrevious disabled>Previous</button></div>
+              <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
+              <div *ngIf="nroPaso == cantStep; else elseBlock2">
+                
+                 
+                <button class="btn btn-primary" (click)="openModal()">
+                  Conclude
+                </button>
+              
+              </div>
+              <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
+            </div>
+          </div>
+      
+
       </div>
+      <hr style="background-color: black;">
+      <div class="row">
+        <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
+          <div *ngFor="let option of options">
+            <div *ngIf="nroPaso == option.idStep">
+                <mat-radio-button class="example-radio-button" [value]="option">
+                  {{ option.name }}
+                </mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+      </div> -->
+          
       </mat-step>
     </mat-horizontal-stepper>
   </div>
+  
   <div class="col-md-2 border border-5" style="background-color: white;">
     <br>
+    <div class="row">
+      <h2>Pick your option:</h2>
+      <br><br>
+    
+      <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
+        <div *ngFor="let option of options">
+          <div *ngIf="nroPaso == option.idStep">
+              <mat-radio-button class="example-radio-button" [value]="option">
+                {{ option.name }}
+              </mat-radio-button>
+          </div>
+        </div>
+      </mat-radio-group>
+
+      <br><br>
+
+      <div>Price: ${{optionSeleted.price}}</div>  
+    </div>
+    <br><br><br>
+    <div class="row">
+    <br>
     <mark><strong><h1>OPTIONS</h1></strong></mark>
-    <table class="table">
+    <table class="table border border-5">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -44,100 +110,11 @@
         </tr>
       </tbody>
     </table>
-    <!--<div *ngFor="let a of cotizacion">
-      <h2 class="btn btn-primary" >{{ a.name + ' $' + a.price }}</h2>
     </div>
-    <div><h3 class="btn btn-dark">TOTAL $ {{ getPriceTotal() }}</h3></div>  -->
-    <div>
-      <label id="example-radio-group-label" style="text-align: left;">Pick your option: </label>
-      <br><br>
-    
-        <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
-          <div *ngFor="let option of options">
-            <div *ngIf="nroPaso == option.idStep">
-                <mat-radio-button class="example-radio-button" [value]="option">
-                  {{ option.name }}
-                </mat-radio-button>
-            </div>
-          </div>
-        </mat-radio-group>
+    <div class="row"> <hr> </div>
 
-         <!-- <div *ngFor="let item of [].constructor(cantStep); let i = index">
-          <div *ngIf="i + 1  == nroPaso" >
-          <div class="form-check" *ngFor="let option2 of options">
-              <div *ngIf="i + 1  == option2.idStep">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault{{ i }}" id="flexRadioDefault{{ i + option2.idOption  }}" [value]="option2.img_src" [(ngModel)]="optionSeleted" checked>
-                  <label class="form-check-label" for="flexRadioDefault{{ i + option2.idOption }}">
-                    {{ option.name }}
-                  </label>
-              </div>  
-          </div>
-          </div>
-        </div> -->
-
-      <br>
-      
-      <br>
-      <div>Price: ${{optionSeleted.price}}</div>  
-    </div>
+     
   </div>
 </div>
 </div>
 <h1>{{ nroPaso }}</h1>
-
-<!-- <div class="btn-group">
-  <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked />
-  <label class="btn btn-secondary" for="option1">Checked</label>
-
-  <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" />
-  <label class="btn btn-secondary" for="option4">Radio</label>
-
-  <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" />
-  <label class="btn btn-secondary" for="option3">Radio</label>
-</div> -->
-
-<!-- <div class="row">
-<div class="col-md-6">
-<h3>{{ cantStep }}</h3>
-<div>
-  <div class="form-check">
-    <input type="radio" class="btn-check" name="q" id="option1">
-    <label class="btn btn-primary" for="option1">Option 1</label>
-  </div>
-  <div class="form-check">
-    <input type="radio" class="btn-check" name="q" id="option5">
-    <label class="btn btn-primary" for="option5">Option 2</label>
-  </div>
-  <div class="form-check">
-    <input type="radio" name="q" id="option3" class="btn-check">
-    <label class="btn btn-primary" for="option3">Option 3</label>
-  </div>
-  <div class="form-check">
-    <input type="radio" name="q" id="option4" class="btn-check">
-    <label class="btn btn-secondary" for="option4">Option 4</label>
-  </div>
-</div>
-</div>
-
-<div class="col-md-6">
-<h3>Question 2</h3>
-<div>
-  <div class="form-check">
-    <input type="radio" class="btn-check" name="q1" id="option11">
-    <label class="btn btn-primary" for="option11">Option 1</label>
-  </div>
-  <div class="form-check">
-    <input type="radio" class="btn-check" name="q1" id="option55">
-    <label class="btn btn-primary" for="option55">Option 2</label>
-  </div>
-  <div class="form-check">
-    <input type="radio" name="q1" id="option33" class="btn-check">
-    <label class="btn btn-primary" for="option33">Option 3</label>
-  </div>
-  <div class="form-check">
-    <input type="radio" name="q1" id="option44" class="btn-check">
-    <label class="btn btn-secondary" for="option44">Option 4</label>
-  </div>
-</div>
-</div> 
-</div> -->

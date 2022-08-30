@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { Obra } from '../obra';
 import { ObraService } from '../obra.service';
@@ -6,7 +6,9 @@ import { StepService } from '../step.service';
 import { ActivatedRoute } from '@angular/router';
 import { Step } from '../step';
 import { Option } from '../option';
-import { isEmpty } from 'rxjs';
+
+import { ModalComponent } from '../modal/modal.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-cotizacion',
@@ -23,6 +25,8 @@ export class CotizacionComponent implements OnInit {
   nroPaso = 0;
   nroOption = 1;
   cotizacion= [];
+
+  modalRef: MdbModalRef<ModalComponent> | null = null;
  
 
   obras: Obra[] = [];
@@ -37,15 +41,22 @@ export class CotizacionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    //private obraService: ObraService,
-    private stepService: StepService
+    private obraService: ObraService,
+    private stepService: StepService,
+    private modalService: MdbModalService
   ) { }
 
   ngOnInit(): void {
+    this.getObra();
     this.getSteps();
     this.getOptions();
     this.getPasoInicio();
     this.cantStep = this.steps.length
+  }
+
+  getObra(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.obraService.getObra(id).subscribe(obra => this.obra = obra)
   }
 
   getSteps(): void {
@@ -108,6 +119,12 @@ export class CotizacionComponent implements OnInit {
       total += a.price
     }
     return total
+  }
+
+  openModal() {
+    this.modalRef = this.modalService.open(ModalComponent, {
+      modalClass: 'modal-xl'
+    });
   }
 
 
