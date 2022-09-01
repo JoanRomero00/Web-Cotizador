@@ -37,6 +37,12 @@ import { StepComponent } from './step/step.component';
 import { ModalComponent } from './modal/modal.component';
 
 
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatListModule} from '@angular/material/list';
+
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +75,10 @@ import { ModalComponent } from './modal/modal.component';
     ReactiveFormsModule, 
     MatFormFieldModule,
     MatSliderModule,
-    MatRadioModule
+    MatRadioModule,
+    MatListModule, 
+    MatSlideToggleModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

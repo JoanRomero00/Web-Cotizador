@@ -17,9 +17,12 @@ export class ObraComponent implements OnInit {
       this.getObras();
   }
 
-  getObras(): void {
-    this.ObraService.getObras().
-    subscribe(obras => this.obras = obras);
+  getObras() {
+    //this.ObraService.getObras().
+    //subscribe(obras => this.obras = obras);
+    return this.ObraService.getObras().subscribe((obras: Obra[]) => this.obras = obras)
+      //.getMascotas()
+      //.subscribe((mascotas: Mascota[]) => this.mascotas = mascotas);
   }
 
 

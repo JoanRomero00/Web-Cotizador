@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ObraComponent } from './obra/obra.component';
 import { CotizacionComponent } from './cotizacion/cotizacion.component';
+import { StepComponent } from './step/step.component';
 
 const routes: Routes = [
-  { path: 'obras', component: ObraComponent },
-  { path: '', redirectTo: '/obras', pathMatch: 'full' },
-  { path: 'cotizaciones/:id', component: CotizacionComponent },
+  { path: 'welcome', component: ObraComponent },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'cotizador/:id', component: CotizacionComponent },
+  { path: 'step', component: StepComponent },
 ];
 
 

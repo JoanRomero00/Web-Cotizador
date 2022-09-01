@@ -23,7 +23,6 @@ export class CotizacionComponent implements OnInit {
   price: number = 1111;
   paso: string = '';
   nroPaso = 0;
-  nroOption = 1;
   cotizacion= [];
 
   modalRef: MdbModalRef<ModalComponent> | null = null;
@@ -76,7 +75,6 @@ export class CotizacionComponent implements OnInit {
   getPasoInicio(): void {
     this.nroPaso = this.nroPaso + 1
     this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,1);  
-    //this.stepService.getOption(+this.route.snapshot.paramMap.get('id'), this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
     this.optionSeleted = this.option
   }
 
@@ -99,7 +97,6 @@ export class CotizacionComponent implements OnInit {
       this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
     }
     
-    //this.stepService.getOption(+this.route.snapshot.paramMap.get('id'), this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
     this.optionSeleted = this.option
     
     
@@ -108,7 +105,6 @@ export class CotizacionComponent implements OnInit {
 
   getPasoAnterior(): void {
     this.nroPaso = this.nroPaso - 1
-    //this.stepService.getOption(11, this.nroPaso, 1).subscribe(optionSeleted => this.optionSeleted = this.option.img_src)
     this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
     this.optionSeleted = this.option
   }
@@ -126,6 +122,14 @@ export class CotizacionComponent implements OnInit {
       modalClass: 'modal-xl'
     });
   }
-
+  
+  agregarCGI(check: boolean, optionSelect: Option) {
+    if (check) {
+      this.cotizacion = this.cotizacion.filter((item) => item !== optionSelect)
+    }
+    else {
+      this.cotizacion.push(optionSelect)
+    }
+  }
 
 }

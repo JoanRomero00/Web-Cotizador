@@ -6,4 +6,5 @@ export interface Option {
     img_src: string;
     price?: number;
     img_src_min?: string;
+    check?: boolean;
   }

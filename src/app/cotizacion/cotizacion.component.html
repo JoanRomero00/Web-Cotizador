@@ -1,120 +1,87 @@
-<div *ngIf="obra">
+<!--<div *ngIf="obra">
     <h2>{{obra.name | uppercase}} CONFIGURATOR</h2>
-</div>
+</div> -->
 <br>
 <div>
 <div class="row" style="justify-content: center;">
-  <div class="col-md-9">
-    <mat-horizontal-stepper>
-      <mat-step label="{{step.name}}" *ngFor="let step of steps">
-      <img src="{{ optionSeleted.img_src }}" class="img-fluid border border-5">
-      <br><br><br>
-    
-        <div class="btn-group">
-          <div *ngIf="nroPaso == 1; else elseBlock1"><button class="btn btn-primary" mat-button matStepperPrevious disabled>Previous</button></div>
-          <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
-          <div *ngIf="nroPaso == cantStep; else elseBlock2">
-            
-             
-            <button class="btn btn-primary" (click)="openModal()">
-              Conclude
-            </button>
-          
-          </div>
-          <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
-        </div>
-  
-      <!--<div class="row">
-        
-          <div class="col-md-3">
-            <h2>Pick your option:</h2>
-          </div >  
-          <div class="col-md-6"></div>
-          <div class="col-md-3">
-            <div class="btn-group">
-              <div *ngIf="nroPaso == 1; else elseBlock1"><button class="btn btn-primary" mat-button matStepperPrevious disabled>Previous</button></div>
-              <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
-              <div *ngIf="nroPaso == cantStep; else elseBlock2">
-                
-                 
-                <button class="btn btn-primary" (click)="openModal()">
-                  Conclude
-                </button>
-              
-              </div>
-              <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
-            </div>
-          </div>
+    <mat-horizontal-stepper class="col-md-11" headerPosition = "bottom">
       
-
-      </div>
-      <hr style="background-color: black;">
-      <div class="row">
-        <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
-          <div *ngFor="let option of options">
-            <div *ngIf="nroPaso == option.idStep">
-                <mat-radio-button class="example-radio-button" [value]="option">
-                  {{ option.name }}
-                </mat-radio-button>
-            </div>
-          </div>
-        </mat-radio-group>
-      </div> -->
+      <mat-step label="{{step.name}}" *ngFor="let step of steps">
+        <div class="row">  
+          <img src="{{ optionSeleted.img_src }}" class="col-md-10 img-fluid border border-5">
+            <div class="col-md-2">
+              <div class="row">
+                <div class="btn-group">
+                  <button class="btn btn-primary" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
+                  <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
+              
+                    <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn-success" (click)="openModal()">
+                      Conclude
+                    </button>
+              
+                  <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
+                </div>
+              </div>
+              <br><br>
+              <div class="row" *ngIf="step.CGI == false; else elseBlock3">
+                <h2 class="fs-3">Pick your option:</h2>
+                  <br><br>
+                
+                  <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
+                    <div *ngFor="let option of options">
+                    
+                          <mat-radio-button *ngIf="step.idStep == option.idStep" class="example-radio-button" [value]="option">
+                            <p class="fst-italic fs-3">{{ option.name }}</p>
+                          </mat-radio-button>
+                
+                    </div>
+                  </mat-radio-group>
+              </div>
+              <ng-template #elseBlock3>
+                <h2 class="fs-4">Pick your option:</h2>
+                  <div *ngFor="let option of options">
+                    
+                      <mat-slide-toggle *ngIf="step.idStep == option.idStep" [(ngModel)]="option.check" (click)="agregarCGI(option.check,option)">
+                        <p class="fst-italic fs-3">{{ option.name }}</p>
+                      </mat-slide-toggle>
           
+                  </div>
+              </ng-template>
+       
+              <br>
+              <div class="row">
+                <p class="text-center fs-4">Price: ${{optionSeleted.price}}</p>
+              </div>
+              <br> 
+              <div class="row">
+                <mark><strong><h1>OPTIONS</h1></strong></mark>
+                <table class="table border border-5">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Art</th>
+                      <th scope="col">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let a of cotizacion">
+                      <th>#</th>
+                      <th>{{ a.name }}</th>
+                      <th>{{ a.price }}</th>
+                    </tr>
+                    <tr style="background-color: gray;">
+                      <th></th>
+                      <th>TOTAL </th>
+                      <th>$ {{ getPriceTotal() }}</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        
+
+        </div>
       </mat-step>
+    
     </mat-horizontal-stepper>
   </div>
-  
-  <div class="col-md-2 border border-5" style="background-color: white;">
-    <br>
-    <div class="row">
-      <h2>Pick your option:</h2>
-      <br><br>
-    
-      <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
-        <div *ngFor="let option of options">
-          <div *ngIf="nroPaso == option.idStep">
-              <mat-radio-button class="example-radio-button" [value]="option">
-                {{ option.name }}
-              </mat-radio-button>
-          </div>
-        </div>
-      </mat-radio-group>
-
-      <br><br>
-
-      <div>Price: ${{optionSeleted.price}}</div>  
-    </div>
-    <br><br><br>
-    <div class="row">
-    <br>
-    <mark><strong><h1>OPTIONS</h1></strong></mark>
-    <table class="table border border-5">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Art</th>
-          <th scope="col">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let a of cotizacion">
-          <th>#</th>
-          <th>{{ a.name }}</th>
-          <th>{{ a.price }}</th>
-        </tr>
-        <tr style="background-color: gray;">
-          <th></th>
-          <th>TOTAL </th>
-          <th>$ {{ getPriceTotal() }}</th>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    <div class="row"> <hr> </div>
-
-     
-  </div>
-</div>
-</div>
-<h1>{{ nroPaso }}</h1>

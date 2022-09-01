@@ -7,4 +7,8 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 })
 export class ModalComponent {
   constructor(public modalRef: MdbModalRef<ModalComponent>) {}
+
+  onSubmit() {
+    
+  }
 }
