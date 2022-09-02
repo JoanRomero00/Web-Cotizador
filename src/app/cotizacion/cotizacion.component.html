@@ -10,6 +10,10 @@
         <div class="row">  
           <img src="{{ optionSeleted.img_src }}" class="col-md-10 img-fluid border border-5">
             <div class="col-md-2">
+              <div  data-mdb-spy="scroll"
+              data-mdb-target="#scrollspy1"
+              data-mdb-offset="0"
+              class="scrollspy-example">
               <div class="row">
                 <div class="btn-group">
                   <button class="btn btn-primary" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
@@ -35,6 +39,11 @@
                           </mat-radio-button>
                 
                     </div>
+                    <div>
+                      <mat-radio-button class="example-radio-button" [value]="optionVacia">
+                        <p class="fst-italic fs-3">Saltar Opcion</p>
+                      </mat-radio-button>
+                    </div>
                   </mat-radio-group>
               </div>
               <ng-template #elseBlock3>
@@ -49,9 +58,7 @@
               </ng-template>
        
               <br>
-              <div class="row">
-                <p class="text-center fs-4">Price: ${{optionSeleted.price}}</p>
-              </div>
+             
               <br> 
               <div class="row">
                 <mark><strong><h1>OPTIONS</h1></strong></mark>
@@ -65,9 +72,9 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let a of cotizacion">
-                      <th>#</th>
-                      <th>{{ a.name }}</th>
-                      <th>{{ a.price }}</th>
+                      <th *ngIf="a.name !== ''">#</th>
+                      <th *ngIf="a.name !== ''">{{ a.name }}</th>
+                      <th *ngIf="a.name !== ''">{{ a.price }}</th>
                     </tr>
                     <tr style="background-color: gray;">
                       <th></th>
@@ -77,6 +84,7 @@
                   </tbody>
                 </table>
               </div>
+            </div>
           </div>
         
 
@@ -84,4 +92,70 @@
       </mat-step>
     
     </mat-horizontal-stepper>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <!-- Spied element -->
+      <div
+        data-mdb-spy="scroll"
+        data-mdb-target="#scrollspy1"
+        data-mdb-offset="0"
+        class="scrollspy-example"
+      >
+        <section id="example-1">
+          <h3>Section 1</h3>
+          ...
+        </section>
+        <section id="example-2">
+          <h3>Section 2</h3>
+          ...
+        </section>
+        <section id="example-3">
+          <h3>Section 3</h3>
+          ...
+          <section id="example-sub-A">
+            <h3>Subsection A</h3>
+            ...
+          </section>
+          <section id="example-sub-B">
+            <h3>Subsection B</h3>
+            ...
+          </section>
+        </section>
+        <section id="example-4">
+          <h3>Section 4</h3>
+          ...
+        </section>
+      </div>
+      <!-- Spied element -->
+    </div>
+  
+    <div class="col-md-4">
+      <!-- Scrollspy -->
+      <div id="scrollspy1" class="sticky-top">
+        <ul class="nav flex-column nav-pills menu-sidebar">
+          <li class="nav-item">
+            <a class="nav-link" href="#example-1">Section 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#example-2">Section 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#example-3">Section 3</a>
+            <ul class="nav flex-column ps-3">
+              <li class="nav-item">
+                <a class="nav-link" href="#example-sub-A">Subsection A</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#example-sub-B">Subsection B</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#example-4">Section 4</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Scrollspy -->
+    </div>
   </div>

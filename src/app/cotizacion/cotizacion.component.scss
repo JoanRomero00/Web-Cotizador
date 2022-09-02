@@ -19,4 +19,13 @@
     margin: 5px;
   
   }
+
+  .scroll { position: relative; }
+
+  /* Styles required only for the example above */
+  .scrollspy-example {
+    position: relative;
+    height: 800px;
+    overflow: auto;
+  }
   

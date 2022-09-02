@@ -17,11 +17,11 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 })
 export class CotizacionComponent implements OnInit {
 
-  load: boolean;
+  //load: boolean;
   optionSeleted: Option;
-  url_foto: string = '';
+  //url_foto: string = '';
   price: number = 1111;
-  paso: string = '';
+  //paso: string = '';
   nroPaso = 0;
   cotizacion= [];
 
@@ -31,6 +31,8 @@ export class CotizacionComponent implements OnInit {
   obras: Obra[] = [];
   obra: Obra;
   option: Option;
+  optionVacia: Option;
+  //optionVacia.img_src = '';
   steps: Step[] = [];
   options: Option[] = [];
 
@@ -46,11 +48,13 @@ export class CotizacionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
     this.getObra();
     this.getSteps();
     this.getOptions();
     this.getPasoInicio();
-    this.cantStep = this.steps.length
+    this.cantStep = this.steps.length;
+    this.optionVacia = {idOption: 1, idStep: 1, idObra: 1, name: '' , img_src:'../assets/images/options/Full-Front1.jpg', price: 0}
   }
 
   getObra(): void {
