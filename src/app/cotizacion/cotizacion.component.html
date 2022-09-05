@@ -1,13 +1,12 @@
 <!--<div *ngIf="obra">
     <h2>{{obra.name | uppercase}} CONFIGURATOR</h2>
 </div> -->
-<br>
-<div>
+
 <div class="row" style="justify-content: center;">
     <mat-horizontal-stepper class="col-md-11" headerPosition = "bottom">
       
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
-        <div class="row">  
+        <div class="row" *ngIf="step.CGI == false; else elseCGI">  
           <img src="{{ optionSeleted.img_src }}" class="col-md-10 img-fluid border border-5">
             <div class="col-md-2">
               <div  data-mdb-spy="scroll"
@@ -30,38 +29,29 @@
               <div class="row" *ngIf="step.CGI == false; else elseBlock3">
                 <h2 class="fs-3">Pick your option:</h2>
                   <br><br>
-                
+                  
                   <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
                     <div *ngFor="let option of options">
                     
-                          <mat-radio-button *ngIf="step.idStep == option.idStep" class="example-radio-button" [value]="option">
+                          <mat-radio-button *ngIf="step.idStep == option.idStep" class="example-radio-button" [value]="option" (click)="llenarLista(option)">
                             <p class="fst-italic fs-3">{{ option.name }}</p>
                           </mat-radio-button>
                 
                     </div>
                     <div>
-                      <mat-radio-button class="example-radio-button" [value]="optionVacia">
+                      <mat-radio-button class="example-radio-button" [value]="optionVacia" (click)="llenarLista(optionVacia)">
                         <p class="fst-italic fs-3">Saltar Opcion</p>
                       </mat-radio-button>
                     </div>
                   </mat-radio-group>
+            
               </div>
-              <ng-template #elseBlock3>
-                <h2 class="fs-4">Pick your option:</h2>
-                  <div *ngFor="let option of options">
-                    
-                      <mat-slide-toggle *ngIf="step.idStep == option.idStep" [(ngModel)]="option.check" (click)="agregarCGI(option.check,option)">
-                        <p class="fst-italic fs-3">{{ option.name }}</p>
-                      </mat-slide-toggle>
-          
-                  </div>
-              </ng-template>
        
               <br>
              
               <br> 
               <div class="row">
-                <mark><strong><h1>OPTIONS</h1></strong></mark>
+                <mark><strong><h1>You Selection</h1></strong></mark>
                 <table class="table border border-5">
                   <thead>
                     <tr>
@@ -72,7 +62,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let a of cotizacion">
-                      <th *ngIf="a.name !== ''">#</th>
+                      <th *ngIf="a.name !== ''">*</th>
                       <th *ngIf="a.name !== ''">{{ a.name }}</th>
                       <th *ngIf="a.name !== ''">{{ a.price }}</th>
                     </tr>
@@ -89,73 +79,78 @@
         
 
         </div>
+        <ng-template #elseCGI>
+          <div class="row">
+            <img src="{{ optionSeleted.img_src }}" class="col-md-8 img-fluid border border-5">
+              <div class="col-md-4">
+                <div  data-mdb-spy="scroll"
+                data-mdb-target="#scrollspy1"
+                data-mdb-offset="0"
+                class="scrollspy-example">
+                <div class="row">
+                  <div class="btn-group">
+                    <button class="btn btn-primary" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
+                    <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
+                
+                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn-success" (click)="openModal()">
+                        Conclude
+                      </button>
+                
+                    <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
+                  </div>
+                </div>
+                <br><br>
+                <div class="row">
+                  <h2 class="fs-3">Pick your option:</h2>
+                    <br><br>
+                    
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th *ngFor="let a of ObtenerAmbientes()">{{ a.name }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          
+                      </tbody>
+                    </table>
+              
+                </div>
+          
+                <br>
+                
+                <br> 
+                <div class="row">
+                  <mark><strong><h1>You Selection</h1></strong></mark>
+                  <table class="table border border-5">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Art</th>
+                        <th scope="col">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let a of cotizacion">
+                        <th *ngIf="a.name !== ''">*</th>
+                        <th *ngIf="a.name !== ''">{{ a.name }}</th>
+                        <th *ngIf="a.name !== ''">{{ a.price }}</th>
+                      </tr>
+                      <tr style="background-color: gray;">
+                        <th></th>
+                        <th>TOTAL </th>
+                        <th>$ {{ getPriceTotal() }}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ng-template>
       </mat-step>
     
     </mat-horizontal-stepper>
-  </div>
-  <div class="row">
-    <div class="col-md-8">
-      <!-- Spied element -->
-      <div
-        data-mdb-spy="scroll"
-        data-mdb-target="#scrollspy1"
-        data-mdb-offset="0"
-        class="scrollspy-example"
-      >
-        <section id="example-1">
-          <h3>Section 1</h3>
-          ...
-        </section>
-        <section id="example-2">
-          <h3>Section 2</h3>
-          ...
-        </section>
-        <section id="example-3">
-          <h3>Section 3</h3>
-          ...
-          <section id="example-sub-A">
-            <h3>Subsection A</h3>
-            ...
-          </section>
-          <section id="example-sub-B">
-            <h3>Subsection B</h3>
-            ...
-          </section>
-        </section>
-        <section id="example-4">
-          <h3>Section 4</h3>
-          ...
-        </section>
-      </div>
-      <!-- Spied element -->
-    </div>
-  
-    <div class="col-md-4">
-      <!-- Scrollspy -->
-      <div id="scrollspy1" class="sticky-top">
-        <ul class="nav flex-column nav-pills menu-sidebar">
-          <li class="nav-item">
-            <a class="nav-link" href="#example-1">Section 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#example-2">Section 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#example-3">Section 3</a>
-            <ul class="nav flex-column ps-3">
-              <li class="nav-item">
-                <a class="nav-link" href="#example-sub-A">Subsection A</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#example-sub-B">Subsection B</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#example-4">Section 4</a>
-          </li>
-        </ul>
-      </div>
-      <!-- Scrollspy -->
-    </div>
   </div>

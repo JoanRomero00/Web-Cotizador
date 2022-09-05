@@ -1,14 +1,16 @@
 import { Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import { Obra } from '../obra';
-import { ObraService } from '../obra.service';
-import { StepService } from '../step.service';
+import { Obra } from '../models/obra';
+import { ObraService } from '../services/obra.service';
+import { StepService } from '../services/step.service';
 import { ActivatedRoute } from '@angular/router';
-import { Step } from '../step';
-import { Option } from '../option';
+import { Step } from '../models/step';
+import { Option } from '../models/option';
+import { OptionCGI } from '../models/optionCGI';
 
 import { ModalComponent } from '../modal/modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ambienteCGI } from '../models/ambientesCGI';
 
 @Component({
   selector: 'app-cotizacion',
@@ -17,11 +19,9 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 })
 export class CotizacionComponent implements OnInit {
 
-  //load: boolean;
+
   optionSeleted: Option;
-  //url_foto: string = '';
-  price: number = 1111;
-  //paso: string = '';
+
   nroPaso = 0;
   cotizacion= [];
 
@@ -32,11 +32,14 @@ export class CotizacionComponent implements OnInit {
   obra: Obra;
   option: Option;
   optionVacia: Option;
-  //optionVacia.img_src = '';
   steps: Step[] = [];
   options: Option[] = [];
 
   cantStep: number;
+
+  optionsCGI: OptionCGI[];
+  optionSeletedCGI: OptionCGI;
+  ambientes: ambienteCGI[];
 
 
 
@@ -54,7 +57,8 @@ export class CotizacionComponent implements OnInit {
     this.getOptions();
     this.getPasoInicio();
     this.cantStep = this.steps.length;
-    this.optionVacia = {idOption: 1, idStep: 1, idObra: 1, name: '' , img_src:'../assets/images/options/Full-Front1.jpg', price: 0}
+    this.optionVacia = {idOption: 1, idStep: 1, idObra: 1, name: '' , img_src:'../assets/images/options/Full-Front1.jpg', price: 0};
+    this.getOptionsCGI();
   }
 
   getObra(): void {
@@ -135,5 +139,32 @@ export class CotizacionComponent implements OnInit {
       this.cotizacion.push(optionSelect)
     }
   }
+
+  llenarLista (optionSelect) {
+    
+    if (this.cotizacion[this.nroPaso-1] === undefined) {
+      this.cotizacion.push(optionSelect)
+    }
+    else {
+      this.cotizacion[this.nroPaso-1] = optionSelect
+    }
+  }
+
+  getOptionsCGI(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.stepService.getOptionsCGI(id).subscribe(optionsCGI => this.optionsCGI = optionsCGI)
+  }
+
+  getOptionCGI(idObra: number, idStep: number, idOption: number): void {
+    this.stepService.getOption(idObra, idStep, idOption).subscribe(option => this.option = option)
+  }
+
+  ObtenerAmbientes() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.stepService.getAmbientesCGI(id,this.nroPaso).subscribe(ambientes => this.ambientes = ambientes)
+    return this.ambientes
+  }
+
+
 
 }

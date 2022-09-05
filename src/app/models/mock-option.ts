@@ -23,8 +23,8 @@ export const OPTIONS: Option[] = [
   { idOption: 4, idStep: 1, idObra: 12, name: 'Option 4' , img_src:'../assets/images/options/Full-Front4.jpg', price: 500},
   { idOption: 1, idStep: 2, idObra: 12, name: 'Option 1' , img_src:'../assets/images/options/Full-Front1.jpg', price: 500},
   { idOption: 2, idStep: 2, idObra: 12, name: 'Option 2' , img_src:'../assets/images/options/Full-Front2.jpg', price: 500},
-  { idOption: 1, idStep: 5, idObra: 11, name: 'Closet 1' , img_src:'../assets/images/C(1).jpg', price: 500, check: false},
-  { idOption: 2, idStep: 5, idObra: 11, name: 'Closet 2' , img_src:'../assets/images/C(1).jpg', price: 500, check: false},
-  { idOption: 3, idStep: 5, idObra: 11, name: 'WIC 1' , img_src:'../assets/images/C(1).jpg', price: 1000, check: false},
-  { idOption: 4, idStep: 5, idObra: 11, name: 'WIC 2' , img_src:'../assets/images/C(1).jpg', price: 1000, check: false},
+  { idOption: 1, idStep: 5, idObra: 11, name: 'Closet 1' , img_src:'../assets/images/A(1).jpg', price: 500, check: false},
+  { idOption: 2, idStep: 5, idObra: 11, name: 'Closet 2' , img_src:'../assets/images/A(1).jpg', price: 500, check: false},
+  { idOption: 3, idStep: 5, idObra: 11, name: 'WIC 1' , img_src:'../assets/images/A(1).jpg', price: 1000, check: false},
+  { idOption: 4, idStep: 5, idObra: 11, name: 'WIC 2' , img_src:'../assets/images/A(1).jpg', price: 1000, check: false},
 ];

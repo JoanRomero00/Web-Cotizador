@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Obra } from './obra';
-import { OBRAS } from './mock-obra';
+import { Obra } from '../models/obra';
+import { OBRAS } from '../models/mock-obra';
 
 import { environment } from 'src/environments/environment';
 
@@ -17,12 +17,12 @@ export class ObraService {
 
   constructor(private http: HttpClient) { }
 
-  getObras() {
-    return this.http.get(`${this.baseUrl}/getObras.php`);
-  }
-  //getObras(): Observable<Obra[]> {
-  //  return of(OBRAS);
+  //getObras() {
+  //  return this.http.get(`${this.baseUrl}/getObras.php`);
   //}
+  getObras(): Observable<Obra[]> {
+    return of(OBRAS);
+  }
 
   getObra(id: number): Observable<Obra> {
     return of(OBRAS.find(obra => obra.idObra === id));

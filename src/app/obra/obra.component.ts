@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Obra } from '../obra';
-import { ObraService } from '../obra.service';
+import { Obra } from '../models/obra';
+import { ObraService } from '../services/obra.service';
 
 @Component({
   selector: 'app-obra',
@@ -17,10 +17,10 @@ export class ObraComponent implements OnInit {
       this.getObras();
   }
 
-  getObras() {
-    //this.ObraService.getObras().
-    //subscribe(obras => this.obras = obras);
-    return this.ObraService.getObras().subscribe((obras: Obra[]) => this.obras = obras)
+  getObras(): void {
+    this.ObraService.getObras().
+    subscribe(obras => this.obras = obras);
+    //return this.ObraService.getObras().subscribe((obras: Obra[]) => this.obras = obras)
       //.getMascotas()
       //.subscribe((mascotas: Mascota[]) => this.mascotas = mascotas);
   }
