@@ -11,6 +11,15 @@ import { OptionCGI } from '../models/optionCGI';
 import { ModalComponent } from '../modal/modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ambienteCGI } from '../models/ambientesCGI';
+import { priceCGI } from '../models/priceCGI';
+
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 
 @Component({
   selector: 'app-cotizacion',
@@ -18,7 +27,6 @@ import { ambienteCGI } from '../models/ambientesCGI';
   styleUrls: ['./cotizacion.component.scss']
 })
 export class CotizacionComponent implements OnInit {
-
 
   optionSeleted: Option;
 
@@ -38,8 +46,10 @@ export class CotizacionComponent implements OnInit {
   cantStep: number;
 
   optionsCGI: OptionCGI[];
+  pricesCGI: priceCGI[];
   optionSeletedCGI: OptionCGI;
   ambientes: ambienteCGI[];
+  rowOptiosCGI: [];
 
 
 
@@ -58,7 +68,6 @@ export class CotizacionComponent implements OnInit {
     this.getPasoInicio();
     this.cantStep = this.steps.length;
     this.optionVacia = {idOption: 1, idStep: 1, idObra: 1, name: '' , img_src:'../assets/images/options/Full-Front1.jpg', price: 0};
-    this.getOptionsCGI();
   }
 
   getObra(): void {
@@ -150,11 +159,6 @@ export class CotizacionComponent implements OnInit {
     }
   }
 
-  getOptionsCGI(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.stepService.getOptionsCGI(id).subscribe(optionsCGI => this.optionsCGI = optionsCGI)
-  }
-
   getOptionCGI(idObra: number, idStep: number, idOption: number): void {
     this.stepService.getOption(idObra, idStep, idOption).subscribe(option => this.option = option)
   }
@@ -163,6 +167,37 @@ export class CotizacionComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.stepService.getAmbientesCGI(id,this.nroPaso).subscribe(ambientes => this.ambientes = ambientes)
     return this.ambientes
+  }
+
+  /*ObtenerOptionsCGI() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.stepService.getOptionsCGI(11, 5).subscribe(optionsCGI => this.optionsCGI = optionsCGI)
+    let complete: string[][] = [];
+    for (let aux in this.optionsCGI) {
+        let a: string[] = [];
+        
+        //a.push(aux['idCGI'])
+        a.push(this.optionsCGI[aux].name)
+        this.stepService.getPriceCGI(11, 5, this.optionsCGI[aux].idCGI).subscribe(pricesCGI => this.pricesCGI = pricesCGI)
+        for (var aux2 in this.pricesCGI) {
+            //a.push(aux2['price'])
+            a.push(this.pricesCGI[aux2].price.toString())
+        }
+        complete.push(a);
+    }
+    return complete
+  }*/
+
+  getPrices(idCGI: number) {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.stepService.getPriceCGI(id, this.nroPaso, idCGI).subscribe(pricesCGI => this.pricesCGI = pricesCGI)
+    return this.pricesCGI
+  }
+
+  ObtenerOptionsCGI() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.stepService.getOptionsCGI(id, this.nroPaso).subscribe(optionsCGI => this.optionsCGI = optionsCGI)
+    return this.optionsCGI
   }
 
 

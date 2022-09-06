@@ -98,21 +98,28 @@
                 
                     <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
                   </div>
+                  
                 </div>
                 <br><br>
                 <div class="row">
                   <h2 class="fs-3">Pick your option:</h2>
                     <br><br>
                     
-                    <table>
+                    <table class="table">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th *ngFor="let a of ObtenerAmbientes()">{{ a.name }}</th>
+                          <th style="background-color: black;"></th>
+                          <th *ngFor="let a of ObtenerAmbientes()">{{a.name}}</th>
                         </tr>
                       </thead>
                       <tbody>
-                          
+                        <tr *ngFor="let complete of ObtenerOptionsCGI()">
+                          <th>{{ complete.name }}</th>
+                          <th *ngFor="let a of getPrices(complete.idCGI); let i = index">
+                            <input mdbCheckbox type="checkbox" class="btn-check" id="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}" autocomplete="off" name="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i}}"/>
+                            <label class="btn btn-primary" for="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}">${{ a.price }}</label>
+                          </th>
+                        </tr>
                       </tbody>
                     </table>
               

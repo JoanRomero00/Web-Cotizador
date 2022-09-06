@@ -35,7 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CotizacionComponent } from './cotizacion/cotizacion.component';
 import { StepComponent } from './step/step.component';
 import { ModalComponent } from './modal/modal.component';
-
+import {MatTableModule} from '@angular/material/table';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatListModule} from '@angular/material/list';
@@ -78,7 +78,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatRadioModule,
     MatListModule, 
     MatSlideToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

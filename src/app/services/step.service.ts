@@ -9,6 +9,8 @@ import { OptionCGI } from '../models/optionCGI';
 import { OPTIONS_CGI } from '../models/mock-optionCGI';
 import { ambienteCGI } from '../models/ambientesCGI';
 import { AMBIENTES_CGI } from '../models/mock-ambientesCGI';
+import { priceCGI } from '../models/priceCGI';
+import { PRICE_CGI } from '../models/mock-priceCGI';
 
 @Injectable({
   providedIn: 'root'
@@ -26,20 +28,24 @@ export class StepService {
       return of(OPTIONS.filter(option => option.idObra === idObra));
     }
 
-    getOptionsCGI(idObra: number): Observable<OptionCGI[]> {
-      return of(OPTIONS_CGI.filter(option => option.idObra === idObra));
+    getOptionsCGI(idObra: number, idStep: number): Observable<OptionCGI[]> {
+      return of(OPTIONS_CGI.filter(optionCGI => optionCGI.idObra === idObra && optionCGI.idStep === idStep));
     }
 
     getOption(idObra: number, idStep: number, idOption: number): Observable<Option> {
       return of(OPTIONS.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption));
     }
 
-    getOptionCGI(idObra: number, idStep: number, idOption: number, idCGI): Observable<OptionCGI> {
-      return of(OPTIONS_CGI.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption && option.idCGI === idCGI));
+    getOptionCGI(idObra: number, idStep: number): Observable<OptionCGI> {
+      return of(OPTIONS_CGI.find(option => option.idObra === idObra && option.idStep === idStep));
     }
 
     getAmbientesCGI(idObra: number, idStep: number): Observable<ambienteCGI[]> {
       return of(AMBIENTES_CGI.filter(ambientes => ambientes.idObra === idObra && ambientes.idStep === idStep));
+    }
+
+    getPriceCGI(idObra: number, idStep: number, idCGI: number): Observable<priceCGI[]> {
+      return of(PRICE_CGI.filter(prices => prices.idObra === idObra && prices.idStep === idStep && prices.idCGI === idCGI));
     }
 
   }
