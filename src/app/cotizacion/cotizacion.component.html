@@ -7,7 +7,7 @@
       
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
         <div class="row" *ngIf="step.CGI == false; else elseCGI">  
-          <img src="{{ optionSeleted.img_src }}" class="col-md-10 img-fluid border border-5">
+          <img src="{{ optionSeleted.img_src }}" class="col-md-10 img-fluid border border-5" *ngIf="step.CGI == false">
             <div class="col-md-2">
               <div  data-mdb-spy="scroll"
               data-mdb-target="#scrollspy1"
@@ -81,7 +81,7 @@
         </div>
         <ng-template #elseCGI>
           <div class="row">
-            <img src="{{ optionSeleted.img_src }}" class="col-md-8 img-fluid border border-5">
+            <img src="{{ step.img_src }}" class="col-md-8 img-fluid border border-5">
               <div class="col-md-4">
                 <div  data-mdb-spy="scroll"
                 data-mdb-target="#scrollspy1"
@@ -90,13 +90,13 @@
                 <div class="row">
                   <div class="btn-group">
                     <button class="btn btn-primary" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
-                    <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
+                    <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
                 
                       <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn-success" (click)="openModal()">
                         Conclude
                       </button>
                 
-                    <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
+                    <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
                   </div>
                   
                 </div>
@@ -116,7 +116,9 @@
                         <tr *ngFor="let complete of ObtenerOptionsCGI()">
                           <th>{{ complete.name }}</th>
                           <th *ngFor="let a of getPrices(complete.idCGI); let i = index">
-                            <input mdbCheckbox type="checkbox" class="btn-check" id="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}" autocomplete="off" name="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i}}"/>
+                            <input mdbCheckbox type="checkbox" class="btn-check" id="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}" 
+                            autocomplete="off" name="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i}}" (change)="onCheckboxChange($event, a, complete.name)"
+                            />
                             <label class="btn btn-primary" for="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}">${{ a.price }}</label>
                           </th>
                         </tr>
@@ -140,11 +142,16 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let a of cotizacion">
-                        <th *ngIf="a.name !== ''">*</th>
-                        <th *ngIf="a.name !== ''">{{ a.name }}</th>
-                        <th *ngIf="a.name !== ''">{{ a.price }}</th>
+                        <th *ngIf="a.name !== '' && a.type == 'CGI'">*</th>
+                        <th *ngIf="a.name !== '' && a.type == 'CGI'">{{ a.name }}</th>
+                        <th *ngIf="a.name !== '' && a.type == 'CGI'">{{ a.price }}</th>
                       </tr>
-                      <tr style="background-color: gray;">
+                     <tr style="background-color: rgb(208, 187, 223);">
+                        <th>{{step.name}}</th>
+                        <th>SUBTOTAL</th>
+                        <th>$ {{ getPriceSubTotal(step.idStep) }}</th>
+                      </tr>
+                      <tr style="background-color: rgb(182, 169, 169);">
                         <th></th>
                         <th>TOTAL </th>
                         <th>$ {{ getPriceTotal() }}</th>

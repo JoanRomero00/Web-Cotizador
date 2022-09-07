@@ -36,8 +36,8 @@ export class StepService {
       return of(OPTIONS.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption));
     }
 
-    getOptionCGI(idObra: number, idStep: number): Observable<OptionCGI> {
-      return of(OPTIONS_CGI.find(option => option.idObra === idObra && option.idStep === idStep));
+    getOptionCGI(idObra: number, idStep: number, idCGI: number): Observable<OptionCGI> {
+      return of(OPTIONS_CGI.find(option => option.idObra === idObra && option.idStep === idStep && option.idCGI === idCGI));
     }
 
     getAmbientesCGI(idObra: number, idStep: number): Observable<ambienteCGI[]> {
@@ -46,6 +46,10 @@ export class StepService {
 
     getPriceCGI(idObra: number, idStep: number, idCGI: number): Observable<priceCGI[]> {
       return of(PRICE_CGI.filter(prices => prices.idObra === idObra && prices.idStep === idStep && prices.idCGI === idCGI));
+    }
+
+    getAmbienteCGI(idObra: number, idStep: number, idAmbiente: number): Observable<ambienteCGI> {
+      return of(AMBIENTES_CGI.find(ambiente => ambiente.idObra === idObra && ambiente.idStep === idStep && ambiente.idAmbiente === idAmbiente));
     }
 
   }

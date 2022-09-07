@@ -31,7 +31,7 @@ export class CotizacionComponent implements OnInit {
   optionSeleted: Option;
 
   nroPaso = 0;
-  cotizacion= [];
+  cotizacion: Option[] = [];
 
   modalRef: MdbModalRef<ModalComponent> | null = null;
  
@@ -46,9 +46,11 @@ export class CotizacionComponent implements OnInit {
   cantStep: number;
 
   optionsCGI: OptionCGI[];
+  optionCGI: OptionCGI;
   pricesCGI: priceCGI[];
   optionSeletedCGI: OptionCGI;
   ambientes: ambienteCGI[];
+  ambiente: ambienteCGI;
   rowOptiosCGI: [];
 
 
@@ -126,10 +128,39 @@ export class CotizacionComponent implements OnInit {
     this.optionSeleted = this.option
   }
 
+  getPasoSiguienteCGI(): void {
+    this.nroPaso = this.nroPaso + 1
+    if (this.cotizacion[this.nroPaso-1] === undefined){
+      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,1);  
+    }
+    else
+    {
+      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    }
+    this.optionSeleted = this.option
+  }
+
+  
+  getPasoAnteriorCGI(): void {
+    this.nroPaso = this.nroPaso - 1
+    this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    this.optionSeleted = this.option
+  }
+
   getPriceTotal() {
     var total = 0;
     for (var a of this.cotizacion) {
       total += a.price
+    }
+    return total
+  }
+
+  getPriceSubTotal(idStep: number) {
+    var total = 0;
+    for (var a of this.cotizacion) {
+      if (a.type === 'CGI' && a.idStep === idStep) {
+        total += a.price
+      }
     }
     return total
   }
@@ -139,18 +170,8 @@ export class CotizacionComponent implements OnInit {
       modalClass: 'modal-xl'
     });
   }
-  
-  agregarCGI(check: boolean, optionSelect: Option) {
-    if (check) {
-      this.cotizacion = this.cotizacion.filter((item) => item !== optionSelect)
-    }
-    else {
-      this.cotizacion.push(optionSelect)
-    }
-  }
 
   llenarLista (optionSelect) {
-    
     if (this.cotizacion[this.nroPaso-1] === undefined) {
       this.cotizacion.push(optionSelect)
     }
@@ -169,25 +190,6 @@ export class CotizacionComponent implements OnInit {
     return this.ambientes
   }
 
-  /*ObtenerOptionsCGI() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.stepService.getOptionsCGI(11, 5).subscribe(optionsCGI => this.optionsCGI = optionsCGI)
-    let complete: string[][] = [];
-    for (let aux in this.optionsCGI) {
-        let a: string[] = [];
-        
-        //a.push(aux['idCGI'])
-        a.push(this.optionsCGI[aux].name)
-        this.stepService.getPriceCGI(11, 5, this.optionsCGI[aux].idCGI).subscribe(pricesCGI => this.pricesCGI = pricesCGI)
-        for (var aux2 in this.pricesCGI) {
-            //a.push(aux2['price'])
-            a.push(this.pricesCGI[aux2].price.toString())
-        }
-        complete.push(a);
-    }
-    return complete
-  }*/
-
   getPrices(idCGI: number) {
     const id = +this.route.snapshot.paramMap.get('id');
     this.stepService.getPriceCGI(id, this.nroPaso, idCGI).subscribe(pricesCGI => this.pricesCGI = pricesCGI)
@@ -200,6 +202,32 @@ export class CotizacionComponent implements OnInit {
     return this.optionsCGI
   }
 
+  onCheckboxChange(event: any, optionSelect: priceCGI, titulo: string) {
+    this.stepService.getAmbienteCGI(optionSelect.idObra, optionSelect.idStep, optionSelect.idAmbiente).subscribe(ambiente => this.ambiente = ambiente)
+    this.stepService.getOptionCGI(optionSelect.idObra, optionSelect.idStep, optionSelect.idCGI).subscribe(optionCGI => this.optionCGI = optionCGI)
+    let idop = optionSelect.idCGI.toString().concat(optionSelect.idAmbiente.toString())
+    var optCGI: Option 
+    optCGI = { idOption: +idop, idStep: optionSelect.idStep, idObra: optionSelect.idObra, name: this.optionCGI.name + ' | ' + this.ambiente.name, price: optionSelect.price, type: "CGI", tittle: titulo};
+    if (event.target.checked) {
+      this.cotizacion.push(optCGI)
+    } else {
+      this.cotizacion = this.cotizacion.filter((item) => (optCGI.idObra !== item.idObra || optCGI.idStep !== item.idStep || optCGI.idOption !== item.idOption))
+    }
+  }
 
+  getAmbiente() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.stepService.getAmbientesCGI(id,this.nroPaso).subscribe(ambientes => this.ambientes = ambientes)
+    return this.ambientes
+  }
+
+  agregarCGI(check: boolean, optionSelect: Option) {
+    if (check) {
+      this.cotizacion = this.cotizacion.filter((item) => item !== optionSelect)
+    }
+    else {
+      this.cotizacion.push(optionSelect)
+    }
+  }
 
 }
