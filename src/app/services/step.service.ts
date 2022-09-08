@@ -24,6 +24,10 @@ export class StepService {
       return of(STEPS.filter(step => step.idObra === idObra));
     }
 
+    getPaso(idObra: number, idStep: number): Step {
+      return STEPS.find(step => step.idObra === idObra && step.idStep === idStep);
+    }
+
     getOptions(idObra: number): Observable<Option[]> {
       return of(OPTIONS.filter(option => option.idObra === idObra));
     }

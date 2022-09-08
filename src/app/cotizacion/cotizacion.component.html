@@ -3,32 +3,32 @@
 </div> -->
 
 <div class="row" style="justify-content: center;">
-    <mat-horizontal-stepper class="col-md-11" headerPosition = "bottom">
+    <mat-horizontal-stepper class="col-md-11 cuadro" headerPosition = "bottom">
       
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
         <div class="row" *ngIf="step.CGI == false; else elseCGI">  
-          <img src="{{ optionSeleted.img_src }}" class="col-md-10 img-fluid border border-5" *ngIf="step.CGI == false">
-            <div class="col-md-2">
+          <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-opt" *ngIf="step.CGI == false">
+            <div class="col-md-3 columna-options">
               <div  data-mdb-spy="scroll"
               data-mdb-target="#scrollspy1"
               data-mdb-offset="0"
               class="scrollspy-example">
+              <br>
               <div class="row">
                 <div class="btn-group">
-                  <button class="btn btn-primary" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
-                  <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnterior()">Previous</button></ng-template>
+                  <button class="btn boton-pn" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
+                  <ng-template #elseBlock1><button class="btn boton-pn" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
               
-                    <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn-success" (click)="openModal()">
+                    <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn boton-pn" (click)="openModal()">
                       Conclude
                     </button>
               
-                  <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguiente(optionSeleted)">Next</button></ng-template>
+                  <ng-template #elseBlock2><button class="btn boton-pn" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
                 </div>
               </div>
               <br><br>
               <div class="row" *ngIf="step.CGI == false; else elseBlock3">
-                <h2 class="fs-3">Pick your option:</h2>
-                  <br><br>
+                <h2 class="fs-3 titulo">Pick your option</h2>
                   
                   <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
                     <div *ngFor="let option of options">
@@ -49,10 +49,9 @@
        
               <br>
              
-              <br> 
               <div class="row">
-                <mark><strong><h1>You Selection</h1></strong></mark>
-                <table class="table border border-5">
+                <h2 class="fs-3 titulo">You Selection</h2>
+                <table class="table table-secondary table-striped table-hover table-bordered border-dark">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -61,12 +60,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let a of cotizacion">
+                    <tr *ngFor="let a of mostrarTabla()">
                       <th *ngIf="a.name !== ''">*</th>
                       <th *ngIf="a.name !== ''">{{ a.name }}</th>
-                      <th *ngIf="a.name !== ''">{{ a.price }}</th>
+                      <th *ngIf="a.name !== ''">${{ a.price }}</th>
                     </tr>
-                    <tr style="background-color: gray;">
+                    <tr>
                       <th></th>
                       <th>TOTAL </th>
                       <th>$ {{ getPriceTotal() }}</th>
@@ -81,34 +80,34 @@
         </div>
         <ng-template #elseCGI>
           <div class="row">
-            <img src="{{ step.img_src }}" class="col-md-8 img-fluid border border-5">
-              <div class="col-md-4">
+            <img src="{{ step.img_src }}" class="col-md-8 img-opt">
+              <div class="col-md-4 columna-options">
+                <br>
                 <div  data-mdb-spy="scroll"
                 data-mdb-target="#scrollspy1"
                 data-mdb-offset="0"
                 class="scrollspy-example">
                 <div class="row">
                   <div class="btn-group">
-                    <button class="btn btn-primary" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
-                    <ng-template #elseBlock1><button class="btn btn-primary" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
+                    <button class="btn btn boton-pn" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
+                    <ng-template #elseBlock1><button class="btn btn boton-pn" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
                 
-                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn-success" (click)="openModal()">
+                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn boton-pn" (click)="openModal()">
                         Conclude
                       </button>
                 
-                    <ng-template #elseBlock2><button class="btn btn-primary" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
+                    <ng-template #elseBlock2><button class="btn btn boton-pn" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
                   </div>
                   
                 </div>
                 <br><br>
                 <div class="row">
-                  <h2 class="fs-3">Pick your option:</h2>
-                    <br><br>
+                  <h2 class="fs-3 titulo">Pick your option:</h2>
                     
-                    <table class="table">
+                    <table class="table table-secondary table-striped table-hover table-bordered border-dark">
                       <thead>
                         <tr>
-                          <th style="background-color: black;"></th>
+                          <th class="titulo"></th>
                           <th *ngFor="let a of ObtenerAmbientes()">{{a.name}}</th>
                         </tr>
                       </thead>
@@ -117,22 +116,21 @@
                           <th>{{ complete.name }}</th>
                           <th *ngFor="let a of getPrices(complete.idCGI); let i = index">
                             <input mdbCheckbox type="checkbox" class="btn-check" id="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}" 
-                            autocomplete="off" name="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i}}" (change)="onCheckboxChange($event, a, complete.name)"
-                            />
-                            <label class="btn btn-primary" for="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}">${{ a.price }}</label>
+                            autocomplete="off" name="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i}}" [checked]="getButtonCGI(a.idAmbiente, a.idCGI)" 
+                            (change)="onCheckboxChange($event, a, step.name)"/>
+                            <label class="btn btn-success" for="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}">${{ a.price }}</label>
                           </th>
                         </tr>
                       </tbody>
                     </table>
               
                 </div>
-          
-                <br>
                 
-                <br> 
+                <br>
+
                 <div class="row">
-                  <mark><strong><h1>You Selection</h1></strong></mark>
-                  <table class="table border border-5">
+                  <h2 class="fs-3 titulo">You Selection</h2>
+                  <table class="table table-secondary table-striped table-hover table-bordered border-dark">
                     <thead>
                       <tr>
                         <th scope="col">#</th>

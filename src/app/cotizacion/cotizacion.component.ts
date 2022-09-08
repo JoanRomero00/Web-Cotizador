@@ -118,7 +118,6 @@ export class CotizacionComponent implements OnInit {
     
     this.optionSeleted = this.option
     
-    
   }
 
 
@@ -129,22 +128,62 @@ export class CotizacionComponent implements OnInit {
   }
 
   getPasoSiguienteCGI(): void {
-    this.nroPaso = this.nroPaso + 1
-    if (this.cotizacion[this.nroPaso-1] === undefined){
-      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,1);  
+    let idObra = +this.route.snapshot.paramMap.get('id');
+    this.nroPaso = this.nroPaso + 1;
+    let step = this.stepService.getPaso(idObra, this.nroPaso);
+
+    if ( step.CGI === true ) {
+      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,1);
     }
-    else
-    {
-      this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    else {
+      let pasoSig: Option = this.cotizacion.find(opcion => opcion.idStep === this.nroPaso);
+      if (pasoSig === undefined){
+        this.getOption(idObra, this.nroPaso, 1);  
+      }
+      else
+      {
+        this.getOption(idObra,this.nroPaso,pasoSig.idOption);
+      }
+      this.optionSeleted = this.option
     }
-    this.optionSeleted = this.option
   }
 
   
   getPasoAnteriorCGI(): void {
     this.nroPaso = this.nroPaso - 1
-    this.getOption(+this.route.snapshot.paramMap.get('id'),this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    let idObra = +this.route.snapshot.paramMap.get('id');
+    let step = this.stepService.getPaso(idObra, this.nroPaso);
+
+    if ( step.CGI === true ) {
+      this.getOption(idObra,this.nroPaso,1);
+    } else {
+      let pasoPre: Option = this.cotizacion.find(opcion => opcion.idStep === this.nroPaso);  
+      this.getOption(idObra,this.nroPaso,pasoPre.idOption);  
+    }
+    
     this.optionSeleted = this.option
+  }
+
+  llenarLista (optionSelect) {
+    let op: Option = this.cotizacion.find(opcion => opcion.idStep === this.nroPaso);
+    if (op === undefined) {
+      this.cotizacion.push(optionSelect)
+    }
+    else {
+      let index = this.cotizacion.indexOf(op)
+      this.cotizacion[index] = optionSelect
+    }
+  }
+
+  getButtonCGI(idAmbiente: number, idCGI: number) {
+    let idObra = +this.route.snapshot.paramMap.get('id');
+    let idop = idCGI.toString().concat(idAmbiente.toString())
+    let ver = this.cotizacion.find(opc => opc.idObra === idObra && opc.idStep === this.nroPaso && opc.idOption == +idop)
+    if (ver === undefined) {
+      return false
+    } else {
+      return true
+    }
   }
 
   getPriceTotal() {
@@ -171,14 +210,7 @@ export class CotizacionComponent implements OnInit {
     });
   }
 
-  llenarLista (optionSelect) {
-    if (this.cotizacion[this.nroPaso-1] === undefined) {
-      this.cotizacion.push(optionSelect)
-    }
-    else {
-      this.cotizacion[this.nroPaso-1] = optionSelect
-    }
-  }
+  
 
   getOptionCGI(idObra: number, idStep: number, idOption: number): void {
     this.stepService.getOption(idObra, idStep, idOption).subscribe(option => this.option = option)
@@ -221,13 +253,24 @@ export class CotizacionComponent implements OnInit {
     return this.ambientes
   }
 
-  agregarCGI(check: boolean, optionSelect: Option) {
-    if (check) {
-      this.cotizacion = this.cotizacion.filter((item) => item !== optionSelect)
+  mostrarTabla() {
+
+    let tablaCotizacion: Option[] = [];
+    let  opAgr: Option; 
+    for (let aux of this.cotizacion) {
+      if (aux.type === 'CGI') {
+        if (tablaCotizacion.find(op => op.idObra === aux.idObra && op.idStep === aux.idStep) === undefined) {
+        opAgr = {idOption: 1, idStep: aux.idStep, idObra: aux.idObra, name: aux.tittle, price: aux.price, type: "CGI"}
+        tablaCotizacion.push(opAgr)
+        } else {
+          opAgr.price = opAgr.price + aux.price
+        }
+      } else {
+        tablaCotizacion.push(aux)
+      }
     }
-    else {
-      this.cotizacion.push(optionSelect)
-    }
+
+    return tablaCotizacion
   }
 
 }
