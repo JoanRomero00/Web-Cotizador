@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'welcome', component: ObraComponent },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'cotizador/:id', component: CotizacionComponent },
-  { path: 'step', component: StepComponent },
+  { path: 'step/:cotizacion', component: StepComponent },
 ];
 
 

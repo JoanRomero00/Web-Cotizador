@@ -3,4 +3,5 @@ export interface ambienteCGI {
     idObra: number;
     idAmbiente: number;
     name: string;
+    img_src?: string;
 }

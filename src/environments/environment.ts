@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://localhost/Web-Cotizador",
+  baseUrl: "http://localhost",
 };
 
 /*

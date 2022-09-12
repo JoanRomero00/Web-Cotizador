@@ -12,13 +12,16 @@ import { AMBIENTES_CGI } from '../models/mock-ambientesCGI';
 import { priceCGI } from '../models/priceCGI';
 import { PRICE_CGI } from '../models/mock-priceCGI';
 
+import { HttpClient } from '@angular/common/http';
+import { environment } from "../../environments/environment"
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class StepService {
 
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     getPasos(idObra: number): Observable<Step[]> {
       return of(STEPS.filter(step => step.idObra === idObra));
@@ -55,6 +58,13 @@ export class StepService {
     getAmbienteCGI(idObra: number, idStep: number, idAmbiente: number): Observable<ambienteCGI> {
       return of(AMBIENTES_CGI.find(ambiente => ambiente.idObra === idObra && ambiente.idStep === idStep && ambiente.idAmbiente === idAmbiente));
     }
+
+
+    /*baseUrl = environment.baseUrl
+
+    getBD() {
+      return this.http.get(`${this.baseUrl}/getAll.php`);
+    }*/
 
   }
   

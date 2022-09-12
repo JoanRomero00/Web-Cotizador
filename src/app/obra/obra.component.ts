@@ -18,6 +18,7 @@ export class ObraComponent implements OnInit {
   }
 
   getObras(): void {
+    
     this.ObraService.getObras().
     subscribe(obras => this.obras = obras);
     //return this.ObraService.getObras().subscribe((obras: Obra[]) => this.obras = obras)

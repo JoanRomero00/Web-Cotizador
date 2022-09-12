@@ -52,6 +52,7 @@ export class CotizacionComponent implements OnInit {
   ambientes: ambienteCGI[];
   ambiente: ambienteCGI;
   rowOptiosCGI: [];
+  url_min_CGI: string = '../assets/images/ventana1.webp';
 
 
 
@@ -272,5 +273,10 @@ export class CotizacionComponent implements OnInit {
 
     return tablaCotizacion
   }
+
+  obtenerMinCGI(src: string) {
+    this.url_min_CGI = src;
+  }
+  
 
 }

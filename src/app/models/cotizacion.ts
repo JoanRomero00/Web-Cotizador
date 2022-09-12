@@ -1,4 +1,8 @@
-export interface cotizacion {
+export interface Cotizacion {
     idCotizacion: number;
-    //parametros: Obra[];
+    firtName: string;
+    lastName: string;
+    email: string;
+    phone: number;
+    addittionalInfo: string;
   }
