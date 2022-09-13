@@ -31,7 +31,7 @@
               <div class="row" *ngIf="step.CGI == false; else elseBlock3">
                 <h2 class="fs-3 titulo">Pick your option</h2>
                  
-                  <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
+                 <!-- <mat-radio-group name="opList" class="example-radio-group" [(ngModel)]="optionSeleted">
                     <div *ngFor="let option of options">
                     
                           <mat-radio-button *ngIf="step.idStep == option.idStep" class="example-radio-button" [value]="option" (click)="llenarLista(option)">
@@ -44,22 +44,23 @@
                         <p class="fst-italic fs-3">Saltar Opcion</p>
                       </mat-radio-button>
                     </div>
-                  </mat-radio-group>
+                  </mat-radio-group> -->
 
                   
-                  <!-- <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-                    <div mdbRadioGroup *ngFor="let option of options" [(ngModel)]="optionSeleted">
-                      <input mdbRadio *ngIf="step.idStep == option.idStep" id="check{{ option.idStep + option.idOption }}" name="check{{ option.idStep + option.idOption }}" 
-                      [value]="option" (click)="llenarLista(option)" type="radio" class="btn-check">
-                      <label *ngIf="step.idStep == option.idStep" class="btn btn-outline-secondary" for="vbtn-radio1">{{ option.name }}</label>
-                    </div> 
-                     <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked="">
+                   <div mdbRadioGroup class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                    <div  *ngFor="let option of options">
+                      <input *ngIf="step.idStep == option.idStep" id="check{{ option.idStep.toString() + option.idOption.toString() }}" name="check{{ option.idStep.toString() }}" 
+                      [value]="option" (click)="llenarLista(option)" type="radio" class="btn-check" [(ngModel)]="optionSeleted">
+                      <label *ngIf="step.idStep == option.idStep" class="btn btn-outline-secondary" for="check{{ option.idStep.toString() + option.idOption.toString() }}">{{ option.name }}</label>
+                    </div>
+
+                  <!--   <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked="">
                     <label class="btn btn-outline-secondary" for="vbtn-radio1">Radio 1</label>
                     <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
                     <label class="btn btn-outline-secondary" for="vbtn-radio2">Radio 2</label>
                     <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="vbtn-radio3">Radio 3</label> 
-                  </div> -->
+                    <label class="btn btn-outline-secondary" for="vbtn-radio3">Radio 3</label> -->
+                  </div> 
              
               </div>
        
@@ -192,4 +193,19 @@
       </mat-step>
     
     </mat-horizontal-stepper>
+  </div>
+
+  <div class="btn-group-vertical">
+    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked="">
+    <label class="btn btn-outline-secondary" for="vbtn-radio1">Radio 1</label>
+    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="vbtn-radio2">Radio 2</label>
+    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="vbtn-radio3">Radio 3</label>
+    <input type="radio" class="btn-check" name="vbtn-radio2" id="vbtn-radio11" autocomplete="off" checked="">
+    <label class="btn btn-outline-secondary" for="vbtn-radio11">Radio 1</label>
+    <input type="radio" class="btn-check" name="vbtn-radio2" id="vbtn-radio22" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="vbtn-radio22">Radio 2</label>
+    <input type="radio" class="btn-check" name="vbtn-radio2" id="vbtn-radio33" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="vbtn-radio33">Radio 3</label>
   </div>
