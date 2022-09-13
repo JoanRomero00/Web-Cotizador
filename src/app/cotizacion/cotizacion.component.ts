@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+
 import { Obra } from '../models/obra';
 import { ObraService } from '../services/obra.service';
 import { StepService } from '../services/step.service';
@@ -8,18 +8,14 @@ import { Step } from '../models/step';
 import { Option } from '../models/option';
 import { OptionCGI } from '../models/optionCGI';
 
-import { ModalComponent } from '../modal/modal.component';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+
 import { ambienteCGI } from '../models/ambientesCGI';
 import { priceCGI } from '../models/priceCGI';
 
+import { ModalComponent } from '../modal/modal.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+
 
 @Component({
   selector: 'app-cotizacion',
@@ -53,6 +49,8 @@ export class CotizacionComponent implements OnInit {
   ambiente: ambienteCGI;
   rowOptiosCGI: [];
   url_min_CGI: string = '../assets/images/ventana1.webp';
+
+  dataForm = null
 
 
 
@@ -207,7 +205,7 @@ export class CotizacionComponent implements OnInit {
 
   openModal() {
     this.modalRef = this.modalService.open(ModalComponent, {
-      modalClass: 'modal-xl'
+     modalClass: 'modal-xl',  data: { cotizacion: this.cotizacion },
     });
   }
 
@@ -278,5 +276,10 @@ export class CotizacionComponent implements OnInit {
     this.url_min_CGI = src;
   }
   
+  public obtenerDataForm(dataForm: any) {
+    this.dataForm = dataForm;
+    console.log(this.dataForm)
+    console.log(this.cotizacion)
+  }
 
 }
