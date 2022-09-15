@@ -42,6 +42,8 @@ import {MatListModule} from '@angular/material/list';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { MessageService } from './services/message.service';
+
 
 @NgModule({
   declarations: [
@@ -81,7 +83,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     MatTableModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
