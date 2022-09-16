@@ -1,7 +1,9 @@
 export interface Option {
-    idOption: number;
-    idStep: number;
     idObra: number;
+    idPiso: string;
+    idDepto: string;
+    idStep: number;
+    idOption: number;
     name: string;
     img_src?: string;
     type?: 'CGI' | 'Normal';

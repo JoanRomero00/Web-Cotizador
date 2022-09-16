@@ -7,7 +7,7 @@ import { StepComponent } from './step/step.component';
 const routes: Routes = [
   { path: 'welcome', component: ObraComponent },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
-  { path: 'cotizador/:id', component: CotizacionComponent },
+  { path: 'cotizador/:id/:piso/:depto', component: CotizacionComponent },
   { path: 'cotizacionfinal', component: StepComponent },
   { path: 'step', redirectTo: '/cotizacionfinal', pathMatch: 'full' },
 ];

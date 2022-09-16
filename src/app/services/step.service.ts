@@ -23,40 +23,40 @@ export class StepService {
 
     constructor(private http: HttpClient) { }
 
-    getPasos(idObra: number): Observable<Step[]> {
-      return of(STEPS.filter(step => step.idObra === idObra));
+    getPasos(idObra: number, idPiso: string, idDepto: string): Observable<Step[]> {
+      return of(STEPS.filter(steps => steps.idObra === idObra && steps.idPiso === idPiso && steps.idDepto === idDepto));
     }
 
-    getPaso(idObra: number, idStep: number): Step {
-      return STEPS.find(step => step.idObra === idObra && step.idStep === idStep);
+    getPaso(idObra: number, idPiso: string, idDepto: string ,idStep: number): Step {
+      return STEPS.find(step => step.idObra === idObra && step.idStep === idStep && step.idPiso === idPiso && step.idDepto === idDepto);
     }
 
-    getOptions(idObra: number): Observable<Option[]> {
-      return of(OPTIONS.filter(option => option.idObra === idObra));
+    getOptions(idObra: number,idPiso: string, idDepto: string): Observable<Option[]> {
+      return of(OPTIONS.filter(option => option.idObra === idObra && option.idPiso === idPiso && option.idDepto === idDepto));
     }
 
-    getOptionsCGI(idObra: number, idStep: number): Observable<OptionCGI[]> {
-      return of(OPTIONS_CGI.filter(optionCGI => optionCGI.idObra === idObra && optionCGI.idStep === idStep));
+    getOptionsCGI(idObra: number, idPiso: string, idDepto: string, idStep: number): Observable<OptionCGI[]> {
+      return of(OPTIONS_CGI.filter(optionCGI => optionCGI.idObra === idObra && optionCGI.idStep === idStep && optionCGI.idPiso === idPiso && optionCGI.idDepto === idDepto));
     }
 
-    getOption(idObra: number, idStep: number, idOption: number): Observable<Option> {
-      return of(OPTIONS.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption));
+    getOption(idObra: number, idPiso: string, idDepto: string, idStep: number, idOption: number): Observable<Option> {
+      return of(OPTIONS.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption && option.idPiso === idPiso && option.idDepto === idDepto));
     }
 
-    getOptionCGI(idObra: number, idStep: number, idCGI: number): Observable<OptionCGI> {
-      return of(OPTIONS_CGI.find(option => option.idObra === idObra && option.idStep === idStep && option.idCGI === idCGI));
+    getOptionCGI(idObra: number, idPiso: string, idDepto: string, idStep: number, idCGI: number): Observable<OptionCGI> {
+      return of(OPTIONS_CGI.find(option => option.idObra === idObra && option.idStep === idStep && option.idCGI === idCGI && option.idPiso === idPiso && option.idDepto === idDepto));
     }
 
-    getAmbientesCGI(idObra: number, idStep: number): Observable<ambienteCGI[]> {
-      return of(AMBIENTES_CGI.filter(ambientes => ambientes.idObra === idObra && ambientes.idStep === idStep));
+    getAmbientesCGI(idObra: number, idPiso: string, idDepto: string, idStep: number): Observable<ambienteCGI[]> {
+      return of(AMBIENTES_CGI.filter(ambientes => ambientes.idObra === idObra && ambientes.idStep === idStep && ambientes.idPiso === idPiso && ambientes.idDepto === idDepto));
     }
 
-    getPriceCGI(idObra: number, idStep: number, idCGI: number): Observable<priceCGI[]> {
-      return of(PRICE_CGI.filter(prices => prices.idObra === idObra && prices.idStep === idStep && prices.idCGI === idCGI));
+    getPriceCGI(idObra: number, idPiso: string, idDepto: string, idStep: number, idCGI: number): Observable<priceCGI[]> {
+      return of(PRICE_CGI.filter(prices => prices.idObra == idObra && prices.idStep == idStep && prices.idPiso == idPiso && prices.idDepto == idDepto && prices.idCGI == idCGI));
     }
 
-    getAmbienteCGI(idObra: number, idStep: number, idAmbiente: number): Observable<ambienteCGI> {
-      return of(AMBIENTES_CGI.find(ambiente => ambiente.idObra === idObra && ambiente.idStep === idStep && ambiente.idAmbiente === idAmbiente));
+    getAmbienteCGI(idObra: number, idPiso: string, idDepto: string, idStep: number, idAmbiente: number): Observable<ambienteCGI> {
+      return of(AMBIENTES_CGI.find(ambiente => ambiente.idObra === idObra && ambiente.idStep === idStep && ambiente.idAmbiente === idAmbiente && ambiente.idPiso === idPiso && ambiente.idDepto === idDepto));
     }
 
 

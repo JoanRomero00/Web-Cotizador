@@ -3,6 +3,8 @@ export interface priceCGI {
     idAmbiente: number;
     idStep: number;
     idObra: number;
+    idPiso: string;
+    idDepto: string;
     price: number;
     check?: boolean;
 }

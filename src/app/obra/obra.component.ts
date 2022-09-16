@@ -26,5 +26,12 @@ export class ObraComponent implements OnInit {
       //.subscribe((mascotas: Mascota[]) => this.mascotas = mascotas);
   }
 
+  getPisos(idObra: number): Set<string> {
+    return this.ObraService.getPisos(idObra)
+  }
+
+  getDeptos(idObra: number, idPiso: string): string[] {
+    return this.ObraService.getDeptos(idObra, idPiso)
+  }
 
 }

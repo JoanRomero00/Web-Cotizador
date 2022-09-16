@@ -1,22 +1,43 @@
 <div class="container-fluid">
-<div class="row">
-  <div class="col-md" *ngFor="let obra of obras">
+<div class="row justify-content-center">
+  <div class="col-md-3" *ngFor="let obra of obras">
     <div class="bg-image ripple hover-zoom" data-mdb-ripple-color="light">
         <img
           src="{{ obra.img_src }}"
-          class="img-fluid rounded w-50"
-          alt="..."
+          class="img-fluid rounded"
         />
-        <a routerLink="/cotizador/{{obra.idObra}}">
-          <div class="mask" style="background-color: rgba(0, 0, 0, 0.4); width: 86px;">
+        <!-- <a routerLink="/cotizador/{{obra.idObra}}"> -->
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.4); height: 10%;">
             <div class="d-flex justify-content-center align-items-center h-100">
-              <p class="text-white mb-0">{{obra.name}}</p>
+              <p class="text-white fs-2 fst-italic">{{obra.name}}</p>
             </div>
           </div>
           <div class="hover-overlay">
             <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
           </div>
-        </a>
+       <!-- </a> -->
+        
+    </div>
+    <div class="fondo-select">
+        <div class="row">
+          <h2>Seleccione su piso y departamento.</h2>
+          <label class="col-md text-align" for="piso"><strong>PISO:</strong></label>
+          <select class="form-select col-md" name="piso" id="piso" [(ngModel)]="selectPiso">
+            <option *ngFor="let piso of getPisos(obra.idObra)" [value]="piso">{{ piso }}</option>
+          </select>
+          <label class="col-md text-align" for="depto"><strong>DEPARTAMENTO:</strong> </label>
+          <select class="form-select col-md" name="depto" id="depto" [(ngModel)]="selectDepto">
+            <option *ngFor="let depto of getDeptos(obra.idObra, selectPiso)" [value]="depto">{{ depto }}</option>
+          </select>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+          <button class="btn btn-danger col-md-4" routerLink="/cotizador/{{obra.idObra}}/{{selectPiso}}/{{selectDepto}}" [disabled]="!selectDepto">CONFIGURAR</button>
+        </div>
+    </div>
+      
+ 
+    <div>
     </div>   
   </div>
 </div>
