@@ -1,5 +1,8 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+
+app-modal {
+  background-color: rgba($color: #a19999, $alpha: 0.2);
+}
+
+.modal-content {
+  background-color: rgba($color: #a19999, $alpha: 0.2);
+}

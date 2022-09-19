@@ -1,67 +1,23 @@
 
-.mat-stepper-horizontal {
-    margin-top: 8px;
-  }
-  
-  .mat-form-field {
-    margin-top: 16px;
-  }
-
-  .example-radio-group {
-    display: flex;
-    flex-direction: column;
-    margin: 15px 0;
-    align-items:baseline;
-    margin-left: 25px;
-    border-radius: 8px;
-  }
-
-  .example-radio-button {
-    margin: 5px;
-  
-  }
-
-  .scroll { position: relative; }
-
-  /* Styles required only for the example above */
-  .scrollspy-example {
-    position: relative;
-    height: 688px;
-    overflow: auto;
-  }
-
-  .mat-column-demo-position {
-    width: 32px;
-    border-right: 1px solid currentColor;
-    padding-right: 24px;
-    text-align: center;
-  }
-  
-  .mat-column-demo-name {
-    padding-left: 16px;
-    font-size: 20px;
-  }
-  
-  .mat-column-demo-weight {
-    font-style: italic;
-  }
-  
-  .mat-column-demo-symbol {
-    width: 32px;
-    text-align: center;
-    font-weight: bold;
-  }
   
   .boton-pn {
     background-color: #4c2f91;
-    border-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
     color: white;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     transition-duration: 0.4s;
+  }
+
+  .boton-option {
+    background-color: rgba($color: #4c2f91, $alpha: 0.8);
+    border-color: #4c2f91;
+    color: white;
+    font-size: 16px;
+    transition-duration: 0.1s;
   }
 
   .th-hover {
@@ -100,7 +56,6 @@
 
   .titulo {
     background-color: rgba($color: #622674, $alpha: 0.4);
-    height: 44px;
     width: 80%;
     text-align: center;
     border: 2px solid;
@@ -115,3 +70,4 @@
     border-color: rgb(73, 26, 150);
     border-radius: 12px;
   }
+  

@@ -9,6 +9,7 @@ import { MessageService } from '../services/message.service' ;
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
   
