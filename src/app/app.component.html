@@ -1,78 +1,72 @@
+<div class="img-fluid fondo-principal">
+  <div class="mask">
+    <nav class="navbar fixed-top navbar-expand navbar-dark scrolling-navbar">
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <!-- Brand 
+        <a class="navbar-brand" style="float: left;" href="/">
+          <img height="50"
+          alt="" src="../assets/images/logoRenoGris.png">
+        </a> -->
 
-    <!-- Brand 
-    <a class="navbar-brand" style="float: left;" href="/">
-      <img height="50"
-      alt="" src="../assets/images/logoRenoGris.png">
-    </a> -->
-
-    <!-- Links -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 24px;">
-
-      <!-- Left -->
-      <div class="container" style="float: center;">
-      <ul class="navbar-nav justify-content-center">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">About us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
-        </li>
-      </ul>
-    </div>
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons" style="float: rigth;">
-        <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </li>
-      </ul>
-
-    </div>
-
-
-</nav>
-<!-- Navbar -->
-
-<div class="bg-image">
-  <img src="https://www.tecmasolutions.com/images/00-foto-tecma-01.jpg" class="w-100" />
-  <div
-    class="mask"
-    style="
-      background: linear-gradient(
-        45deg,
-        rgba(29, 236, 197, 0.7),
-        rgba(91, 14, 214, 0.7) 100%
-      );
-    "
-  >
+        <!-- Links -->
+        <div class="navbar-collapse navbar-text" id="navbarSupportedContent" style="font-size: 1.4rem;">
+            <!-- Center -->
+            <div class="container">
+              <ul class="navbar-nav justify-content-center">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/">About us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Products</a>
+                </li>
+              </ul>
+            </div>
+            <!-- Right -->
+            <a href="#" class="nav-link nav-hover" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="nav-link nav-hover" target="_blank">
+              <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </nav>
+    <!-- Navbar -->
     <div>
       <br><br><br><br><br>
-      <div class="text-center white-text wow fadeIn">
-        <!-- <h1 class="mb-4">
-          <strong>{{title}}</strong>
-        </h1>
-        <br> -->
-      
-          <router-outlet></router-outlet>
-     
-        <br><br>
-
-     </div>      
+      <router-outlet></router-outlet>
     </div>
+    <!-- <div class="bg-image">
+      <img src="../assets/images/00-foto-tecma-01.jpg"/>
+      <div
+        class="mask"
+        style="
+          background: linear-gradient(
+            45deg,
+            rgba(29, 236, 197, 0.7),
+            rgba(91, 14, 214, 0.7) 100%
+          );
+        "
+      >
+        <div>
+          <br><br><br><br><br>
+          <div class="text-center white-text wow fadeIn">
+            <h1 class="mb-4">
+            <strong>{{title}}</strong>
+            </h1>
+            <br> 
+            <router-outlet></router-outlet>
+            <br><br>
+          </div>      
+        </div>
 
-  
+      
+      </div>
+    </div> -->
+  </div>
 </div>

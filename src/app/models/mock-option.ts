@@ -1,7 +1,7 @@
 import { Option } from './option';
 
 export const OPTIONS: Option[] = [
-  { idOption: 1, idStep: 1, idObra: 11, idPiso: '01', idDepto: 'A', name: 'Wood 1' , img_src:'../assets/images/options/Ergo2-front1.jpg', price: 1050.6},
+  { idOption: 1, idStep: 1, idObra: 11, idPiso: '01', idDepto: 'A', name: 'Wood 1' , img_src:'../assets/images/options/Ergo-front1.jpg', price: 1050.6},
   { idOption: 2, idStep: 1, idObra: 11, idPiso: '01', idDepto: 'A', name: 'Wood 2' , img_src:'../assets/images/options/Ergo-front2.jpg', price: 1300},
   { idOption: 3, idStep: 1, idObra: 11, idPiso: '01', idDepto: 'A', name: 'Tile 1' , img_src:'../assets/images/options/Ergo-front3.jpg', price: 1030},
   { idOption: 4, idStep: 1, idObra: 11, idPiso: '01', idDepto: 'A', name: 'Tile 2' , img_src:'../assets/images/options/Ergo-front4.jpg', price: 1200.55},

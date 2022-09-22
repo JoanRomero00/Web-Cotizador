@@ -1,5 +1,5 @@
 <div *ngIf="obra">
-    <h2>{{obra.name | uppercase}} CONFIGURATOR | PISO: {{ idPiso }} | DEPTO: {{ idDepto }}</h2>
+    <h2 class="fst-italic text-center texto">{{obra.name | uppercase}} CONFIGURATOR | PISO: {{ idPiso }} | DEPTO: {{ idDepto }}</h2>
 </div>
 
 <div class="row responsive" style="justify-content: center;">
@@ -7,48 +7,40 @@
       
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
         <div class="row" *ngIf="step.CGI == false; else elseCGI">  
-          <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-opt" *ngIf="step.CGI == false">
+          <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-fuild" *ngIf="step.CGI == false">
             <div class="col-md-3 columna-options">
-              <div  data-mdb-spy="scroll"
-              data-mdb-target="#scrollspy1"
-              data-mdb-offset="0"
-              >
+              <div  data-mdb-spy="scroll" data-mdb-target="#scrollspy1" data-mdb-offset="0">
 
                 <div class="row">
                   <div class="btn-group">
-                    <button class="btn boton-pn" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
-                    <ng-template #elseBlock1><button class="btn boton-pn" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
+                    <button class="btn boton-pn fst-italic" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
+                    <ng-template #elseBlock1><button class="btn boton-pn fst-italic" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
                 
-                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn boton-pn" (click)="openModal()">
+                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn boton-pn fst-italic" (click)="openModal()">
                         Conclude
                       </button>
                 
-                    <ng-template #elseBlock2><button class="btn boton-pn" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
+                    <ng-template #elseBlock2><button class="btn boton-pn fst-italic" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
                   </div>
                 </div>
-           
               <br><br>
               <div class="row" *ngIf="step.CGI == false; else elseBlock3">
-                <h2 class="fs-3 titulo">Pick your option</h2>
-
+                <h2 class="fst-italic fs-3 titulo">Pick your option</h2>
                   <div mdbRadioGroup class="form-group" role="group" aria-label="Vertical radio toggle button group">
                     <div *ngFor="let option of options">
                       <input *ngIf="step.idStep == option.idStep" id="check{{ option.idStep.toString() + option.idOption.toString() }}" name="check{{ option.idStep.toString() }}" 
                       [value]="option" (click)="llenarLista(option)" type="radio" class="btn-check" [(ngModel)]="optionSeleted">
-                      <label *ngIf="step.idStep == option.idStep" class="btn btn-outline-success form-control boton-option" for="check{{ option.idStep.toString() + option.idOption.toString() }}">{{ option.name }}</label>
+                      <label *ngIf="step.idStep == option.idStep" class="btn btn-outline-success form-control boton-option fst-italic" for="check{{ option.idStep.toString() + option.idOption.toString() }}">{{ option.name }}</label>
                     </div>
                     <!-- <div>
                       <input id="checkVacio" name="checkVacio" [value]="optionVacia" (click)="llenarLista(optionVacia)" type="radio" class="btn-check" [(ngModel)]="optionSeleted">
                       <label class="btn btn-outline-success form-control boton-option" for="checkVacio">Saltar Opcion</label>
                     </div> -->
                   </div>  
-             
               </div>
-       
               <br><br>
-             
               <div class="row">
-                <h2 class="fs-3 titulo">You Selection</h2>
+                <!-- <h2 class="fst-italic fs-3 titulo">You Selection</h2>
                 <table class="table table-sm table-secondary table-striped table-hover table-bordered border-dark">
                   <thead>
                     <tr>
@@ -66,10 +58,26 @@
                     <tr>
                       <th></th>
                       <th>TOTAL </th>
-                      <th>$ {{ getPriceTotal() }}</th>
+                      <th>${{ getPriceTotal() }}</th>
                     </tr>
                   </tbody>
-                </table>
+                </table> -->
+                <div>
+                  <div class="precio-col">
+                    <div class="precio-col-header">
+                      <h2 class="fst-italic fs-2" style="color: #ffff;">You Selection</h2>
+                    </div>
+                    <br>
+                    <div>
+                    <ul class="fs-3 fst-italic" *ngFor="let a of mostrarTabla()">
+                        <li>{{ a.name }} <span style="float:right;">${{ a.price }} &nbsp;&nbsp;</span></li>
+                    </ul>    
+                    </div>    
+                    <div class="precio-col-comprar">
+                    <a class="fs-3 fst-italic">TOTAL ${{ getPriceTotal() }}</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -81,28 +89,28 @@
             <div class="col-md-7">
               <!-- <img src="{{ step.img_src }}" class="col-md-9 img-opt"> -->
               <!-- <img src="{{ url_min_CGI }}" class="col-md-3 img-opt img-build"> -->
-              <img src="{{ step.img_src }}" class="col-md-10 img-opt">
+              <img src="{{ step.img_src }}" class="img-fuild img-fuild2">
             </div>
               <div class="col-md-5 columna-options">
                 
                 <div class="row">
                   <div class="btn-group">
-                    <button class="btn btn boton-pn" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
-                    <ng-template #elseBlock1><button class="btn btn boton-pn" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
+                    <button class="btn btn boton-pn fst-italic" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
+                    <ng-template #elseBlock1><button class="btn btn boton-pn fst-italic" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
                 
-                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn boton-pn" (click)="openModal()">
+                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn boton-pn fst-italic" (click)="openModal()">
                         Conclude
                       </button>
                 
-                    <ng-template #elseBlock2><button class="btn btn boton-pn" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
+                    <ng-template #elseBlock2><button class="btn btn boton-pn fst-italic" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
                   </div>
                   
                 </div>
                 <br><br>
                 <div class="row">
-                  <h2 class="fs-3 titulo">Pick your option:</h2>
+                  <h2 class="fst-italic fs-3 titulo">Pick your option:</h2>
 
-                  <div class="table-responsive">
+                  <div class="table-responsive fst-italic">
                               <table class="table table-sm table-secondary table-bordered border-dark">
                                 <thead>
                                   <tr>
@@ -128,7 +136,7 @@
                                   </tr>
                                 </tbody>
                               </table>
-                    </div>
+                  </div>
               
                 </div>
                 
@@ -137,33 +145,33 @@
                 <div class="row">
                   <h2 class="fs-3 titulo">You Selection</h2>
                   <div class="table-responsive">
-                  <table class="table table-sm table-secondary table-striped table-hover table-bordered border-dark">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Art</th>
-                        <th scope="col">Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let a of cotizacion">
-                        <th *ngIf="a.name !== '' && a.type == 'CGI'">*</th>
-                        <th *ngIf="a.name !== '' && a.type == 'CGI'">{{ a.name }}</th>
-                        <th *ngIf="a.name !== '' && a.type == 'CGI'">${{ a.price }}</th>
-                      </tr>
-                     <tr style="background-color: rgb(208, 187, 223);">
-                        <th>{{step.name}}</th>
-                        <th>SUBTOTAL</th>
-                        <th>$ {{ getPriceSubTotal(step.idStep) }}</th>
-                      </tr>
-                      <tr style="background-color: rgb(182, 169, 169);">
-                        <th></th>
-                        <th>TOTAL </th>
-                        <th>$ {{ getPriceTotal() }}</th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                    <table class="table table-sm table-secondary table-striped table-hover table-bordered border-dark">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Art</th>
+                          <th scope="col">Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let a of cotizacion">
+                          <th *ngIf="a.name !== '' && a.type == 'CGI'">*</th>
+                          <th *ngIf="a.name !== '' && a.type == 'CGI'">{{ a.name }}</th>
+                          <th *ngIf="a.name !== '' && a.type == 'CGI'">${{ a.price }}</th>
+                        </tr>
+                        <tr style="background-color: rgb(208, 187, 223);">
+                          <th>{{step.name}}</th>
+                          <th>SUBTOTAL</th>
+                          <th>$ {{ getPriceSubTotal(step.idStep) }}</th>
+                        </tr>
+                        <tr style="background-color: rgb(182, 169, 169);">
+                          <th></th>
+                          <th>TOTAL </th>
+                          <th>$ {{ getPriceTotal() }}</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               
             </div>

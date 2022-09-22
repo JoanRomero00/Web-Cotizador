@@ -2,13 +2,13 @@
   
   .boton-pn {
     background-color: #4c2f91;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
     color: white;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 1rem;
     transition-duration: 0.4s;
   }
 
@@ -16,7 +16,7 @@
     background-color: rgba($color: #4c2f91, $alpha: 0.8);
     border-color: #4c2f91;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;
     transition-duration: 0.1s;
   }
 
@@ -38,9 +38,9 @@
 
   .columna-options {
     background-color: rgba($color: #cac7dd, $alpha: 0.6);
-    border: 8px solid;
+    border: 0.4rem solid;
     border-color: rgba($color: #4c00ff, $alpha: 0.6);
-    border-radius: 8px;
+    border-radius: 0.2rem;
   }
 
   .cuadro {
@@ -48,19 +48,23 @@
     border-radius: 8px;
   }
 
-  .img-opt {
-    border: 8px solid;
+  .img-fuild {
+    border: 0.4rem solid;
     border-color: rgba($color: #4c00ff, $alpha: 0.6);
-    border-radius: 8px;
+    border-radius: 0.2rem;
+  }
+
+  .img-fuild2 {
+    width: 100%;
   }
 
   .titulo {
     background-color: rgba($color: #622674, $alpha: 0.4);
     width: 80%;
     text-align: center;
-    border: 2px solid;
+    border: 0.2rem solid;
     border-color: rgba($color: #4c2f91, $alpha: 0.8);
-    border-radius: 12px;
+    border-radius: 0.4rem;
     margin-left: auto;
     margin-right: auto;
   }
@@ -68,6 +72,49 @@
   .btn-success {
     background-color: rgb(73, 26, 150);
     border-color: rgb(73, 26, 150);
-    border-radius: 12px;
   }
-  
+
+  .texto {
+    background: -webkit-linear-gradient(rgb(255, 254, 255),rgb(151, 139, 139));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #ffff;
+    font: italic;
+  }
+
+  #tabla-precios {
+   }
+   /*Columnas*/
+   .precio-col {
+    /*display:inline-block;*/
+    background-color:rgba($color: #ffffff98, $alpha: 0.4);
+    width:100%;
+    border-radius:1rem;
+    margin-bottom:1rem;
+   }
+   /*Headers*/
+   .precio-col-header {
+    background-color:rgb(62, 29, 116);
+    padding: 1rem;
+    border-top-left-radius:1rem;
+    border-top-right-radius:1rem;
+    text-align: center;
+   }
+
+   /*Comprar*/
+   .precio-col-comprar {
+    padding:0.6rem;
+    text-align:center;
+    background-color:rgb(62, 29, 116);
+    margin: 0 auto 20px;
+    border: 2px solid rgb(62, 29, 116);
+    transition: all 0.3s
+   }
+   
+   .precio-col-comprar a {
+    color:#f3f3f3;
+    padding:1rem;
+    font-size:1rem;
+    text-transform:uppercase;
+    transition: all 0.3s
+   }

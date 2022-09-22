@@ -1,4 +1,4 @@
-<div class="container-fluid">
+
 <div class="row justify-content-center">
   <div class="col-md-3" *ngFor="let obra of obras">
     <div class="bg-image ripple hover-zoom" data-mdb-ripple-color="light">
@@ -15,11 +15,9 @@
           <div class="hover-overlay">
             <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
           </div>
-       <!-- </a> -->
-        
+        <!-- </a> -->
     </div>
-    <div class="fondo-select">
-        <div class="row">
+    <div class="form-control fondo-select">
           <h2>Seleccione su piso y departamento.</h2>
           <label class="col-md text-align" for="piso"><strong>PISO:</strong></label>
           <select class="form-select col-md" name="piso" id="piso" [(ngModel)]="selectPiso">
@@ -29,18 +27,10 @@
           <select class="form-select col-md" name="depto" id="depto" [(ngModel)]="selectDepto">
             <option *ngFor="let depto of getDeptos(obra.idObra, selectPiso)" [value]="depto">{{ depto }}</option>
           </select>
-        </div>
-        <br>
-        <div class="row justify-content-center">
-          <button class="btn btn-danger col-md-4" routerLink="/cotizador/{{obra.idObra}}/{{selectPiso}}/{{selectDepto}}" [disabled]="!selectDepto">CONFIGURAR</button>
-        </div>
-    </div>
-      
- 
-    <div>
+          <br>
+          <button class="btn btn-danger" routerLink="/cotizador/{{obra.idObra}}/{{selectPiso}}/{{selectDepto}}" [disabled]="!selectDepto">CONFIGURAR</button>
     </div>   
   </div>
-</div>
 </div>
 
 
