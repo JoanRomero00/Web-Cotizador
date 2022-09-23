@@ -19,12 +19,12 @@ export class ObraService {
 
   constructor(private http: HttpClient) { }
 
-  //getObras() {
-  //  return this.http.get(`${this.baseUrl}/getObras.php`);
-  //}
-  getObras(): Observable<Obra[]> {
-    return of(OBRAS);
+  getObras() {
+    return this.http.get(`/getObras.php`);
   }
+  //getObras(): Observable<Obra[]> {
+  //  return of(OBRAS);
+  //}
 
   getObra(id: number): Observable<Obra> {
     return of(OBRAS.find(obra => obra.idObra === id));

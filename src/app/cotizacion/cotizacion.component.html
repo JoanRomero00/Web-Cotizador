@@ -30,7 +30,7 @@
                     <div *ngFor="let option of options">
                       <input *ngIf="step.idStep == option.idStep" id="check{{ option.idStep.toString() + option.idOption.toString() }}" name="check{{ option.idStep.toString() }}" 
                       [value]="option" (click)="llenarLista(option)" type="radio" class="btn-check" [(ngModel)]="optionSeleted">
-                      <label *ngIf="step.idStep == option.idStep" class="btn btn-outline-success form-control boton-option fst-italic" for="check{{ option.idStep.toString() + option.idOption.toString() }}">{{ option.name }}</label>
+                      <label *ngIf="step.idStep == option.idStep" class="btn btn-success form-control boton-option fst-italic" for="check{{ option.idStep.toString() + option.idOption.toString() }}">{{ option.name }}</label>
                     </div>
                     <!-- <div>
                       <input id="checkVacio" name="checkVacio" [value]="optionVacia" (click)="llenarLista(optionVacia)" type="radio" class="btn-check" [(ngModel)]="optionSeleted">
@@ -65,11 +65,11 @@
                 <div>
                   <div class="precio-col">
                     <div class="precio-col-header">
-                      <h2 class="fst-italic fs-2" style="color: #ffff;">You Selection</h2>
+                      <h2 class="fst-italic" style="color: #ffff;">You Selection</h2>
                     </div>
                     <br>
                     <div>
-                    <ul class="fs-3 fst-italic" *ngFor="let a of mostrarTabla()">
+                    <ul class="fst-italic precio-col-objects" *ngFor="let a of mostrarTabla()">
                         <li>{{ a.name }} <span style="float:right;">${{ a.price }} &nbsp;&nbsp;</span></li>
                     </ul>    
                     </div>    
@@ -182,3 +182,88 @@
     
     </mat-horizontal-stepper>
   </div>
+
+  <!-- <div class="container">
+      <mdb-carousel  [controls]="true">
+        
+          <mdb-carousel-item class="col" [interval]="5000">
+            <div class="row">
+              <img
+                src="../../assets/images/ventana1.webp"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana2.jpg"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana3.webp"
+                class="col-4"
+                alt="..."
+              />
+            </div>
+          </mdb-carousel-item>
+          <mdb-carousel-item class="col" [interval]="5000">
+            <div class="row">
+              <img
+                src="../../assets/images/ventana2.jpg"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana3.webp"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana4.png"
+                class="col-4"
+                alt="..."
+              />
+            </div>
+          </mdb-carousel-item>
+          <mdb-carousel-item class="col" [interval]="5000">
+            <div class="row">
+              <img
+                src="../../assets/images/ventana3.webp"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana4.png"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana1.webp"
+                class="col-4"
+                alt="..."
+              />
+            </div>
+          </mdb-carousel-item>
+          <mdb-carousel-item class="col" [interval]="5000">
+            <div class="row">
+              <img
+                src="../../assets/images/ventana4.png"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana1.webp"
+                class="col-4"
+                alt="..."
+              />
+              <img
+                src="../../assets/images/ventana2.jpg"
+                class="col-4"
+                alt="..."
+              />
+            </div>
+          </mdb-carousel-item>
+      </mdb-carousel>
+  </div>
+  <div> 
+    
+  </div> -->
