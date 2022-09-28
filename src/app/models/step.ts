@@ -1,9 +1,9 @@
 export interface Step {
     idStep: number;
     idObra: number;
-    idPiso: string;
-    idDepto: string;
+    piso: string;
+    depto: string;
     name: string;
     img_src: string;
-    CGI: boolean;
+    CGI: number;
   }

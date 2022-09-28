@@ -6,8 +6,8 @@
     <mat-horizontal-stepper class="col-md-11 cuadro" headerPosition = "bottom">
       
       <mat-step label="{{step.name}}" *ngFor="let step of steps">
-        <div class="row" *ngIf="step.CGI == false; else elseCGI">  
-          <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-fuild" *ngIf="step.CGI == false">
+        <div class="row" *ngIf="step.CGI == 0; else elseCGI">  
+          <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-fuild" *ngIf="step.CGI == 0">
             <div class="col-md-3 columna-options">
               <div  data-mdb-spy="scroll" data-mdb-target="#scrollspy1" data-mdb-offset="0">
 
@@ -19,12 +19,12 @@
                       <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn boton-pn fst-italic" (click)="openModal()">
                         Conclude
                       </button>
-                
+
                     <ng-template #elseBlock2><button class="btn boton-pn fst-italic" mat-button matStepperNext (click)="getPasoSiguienteCGI()">Next</button></ng-template>
                   </div>
                 </div>
               <br><br>
-              <div class="row" *ngIf="step.CGI == false; else elseBlock3">
+              <div class="row" *ngIf="step.CGI == 0; else elseBlock3">
                 <h2 class="fst-italic fs-3 titulo">Pick your option</h2>
                   <div mdbRadioGroup class="form-group" role="group" aria-label="Vertical radio toggle button group">
                     <div *ngFor="let option of options">

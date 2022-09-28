@@ -4,7 +4,6 @@ import { STEPS } from '../models/mock-step';
 import { OPTIONS } from '../models/mock-option';
 import { Option } from '../models/option';
 
-import { Observable, of } from 'rxjs';
 import { OptionCGI } from '../models/optionCGI';
 import { OPTIONS_CGI } from '../models/mock-optionCGI';
 import { ambienteCGI } from '../models/ambientesCGI';
@@ -13,7 +12,7 @@ import { priceCGI } from '../models/priceCGI';
 import { PRICE_CGI } from '../models/mock-priceCGI';
 
 import { HttpClient } from '@angular/common/http';
-import { environment } from "../../environments/environment"
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,24 +22,33 @@ export class StepService {
 
     constructor(private http: HttpClient) { }
 
-    getPasos(idObra: number, idPiso: string, idDepto: string): Observable<Step[]> {
-      return of(STEPS.filter(steps => steps.idObra === idObra && steps.idPiso === idPiso && steps.idDepto === idDepto));
+    API: string = 'http://localhost/cotizador_web/'
+
+    //getPasos(idObra: number, idPiso: string, idDepto: string): Observable<Step[]> {
+    //  return of(STEPS.filter(steps => steps.idObra === idObra && steps.idPiso === idPiso && steps.idDepto === idDepto));
+    //}
+
+    getPasos(idObra: number, idPiso: string, idDepto: string) {
+      let data: String = idObra.toString() + '-' + idPiso + '-' + idDepto;
+      console.log(this.API+"?getPasos="+data)
+      return this.http.get(this.API+"?getPasos="+data)
     }
 
-    getPaso(idObra: number, idPiso: string, idDepto: string ,idStep: number): Step {
-      return STEPS.find(step => step.idObra === idObra && step.idStep === idStep && step.idPiso === idPiso && step.idDepto === idDepto);
+    getPaso(idStep: number) {
+      return this.http.get(this.API+"?getPaso="+idStep);
     }
 
-    getOptions(idObra: number,idPiso: string, idDepto: string): Observable<Option[]> {
-      return of(OPTIONS.filter(option => option.idObra === idObra && option.idPiso === idPiso && option.idDepto === idDepto));
+    getOptions(ID: string) {
+      return this.http.get(this.API+"?getOptions="+ID);
+    }
+
+    getOption(ID: string, idStep: number, idOption: number) {
+      let data: String = ID + '-' + idStep.toString() + '-' + idOption.toString();
+      return this.http.get(this.API+"?getOption"+data);
     }
 
     getOptionsCGI(idObra: number, idPiso: string, idDepto: string, idStep: number): Observable<OptionCGI[]> {
       return of(OPTIONS_CGI.filter(optionCGI => optionCGI.idObra === idObra && optionCGI.idStep === idStep && optionCGI.idPiso === idPiso && optionCGI.idDepto === idDepto));
-    }
-
-    getOption(idObra: number, idPiso: string, idDepto: string, idStep: number, idOption: number): Observable<Option> {
-      return of(OPTIONS.find(option => option.idObra === idObra && option.idStep === idStep && option.idOption === idOption && option.idPiso === idPiso && option.idDepto === idDepto));
     }
 
     getOptionCGI(idObra: number, idPiso: string, idDepto: string, idStep: number, idCGI: number): Observable<OptionCGI> {
@@ -58,13 +66,5 @@ export class StepService {
     getAmbienteCGI(idObra: number, idPiso: string, idDepto: string, idStep: number, idAmbiente: number): Observable<ambienteCGI> {
       return of(AMBIENTES_CGI.find(ambiente => ambiente.idObra === idObra && ambiente.idStep === idStep && ambiente.idAmbiente === idAmbiente && ambiente.idPiso === idPiso && ambiente.idDepto === idDepto));
     }
-
-
-    /*baseUrl = environment.baseUrl
-
-    getBD() {
-      return this.http.get(`${this.baseUrl}/getAll.php`);
-    }*/
-
   }
   
