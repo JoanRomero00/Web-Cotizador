@@ -30,7 +30,7 @@ export class CotizacionComponent implements OnInit {
   modalRef: MdbModalRef<ModalComponent> | null = null;
 
 
-  //INICIALIZACION
+  //INICIALIZACION CONST
   idObra: number = +this.route.snapshot.paramMap.get('id');
   idPiso: string = this.route.snapshot.paramMap.get('piso');
   idDepto: string = this.route.snapshot.paramMap.get('depto');
@@ -38,19 +38,20 @@ export class CotizacionComponent implements OnInit {
 
   //VAR LOCALES
   obra: Obra;
-  obras: Obra[];
-  steps: Step[] = [];
   option: Option;
-  options: Option[] = [];
-  optionVacia: Option;
-  cantStep: number;
-  optionsCGI: OptionCGI[];
   optionCGI: OptionCGI;
-  pricesCGI: priceCGI[];
-  optionSeletedCGI: OptionCGI;
-  ambientes: ambienteCGI[];
   ambiente: ambienteCGI;
+
+  steps: Step[] = [];
+  options: Option[] = [];
+  optionsCGI: OptionCGI[];
+  ambientes: ambienteCGI[];
+  pricesCGI: priceCGI[];
+
+  optionSeletedCGI: OptionCGI;
+  
   rowOptiosCGI: [];
+  optionVacia: Option;
   url_min_CGI: string = '../assets/images/ventana1.webp';
 
   dataForm = null;
@@ -63,24 +64,30 @@ export class CotizacionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getObras();
-    console.log(this.obras)
     this.getObra();
     this.getSteps();
     this.getOptions();
     this.getPasoInicio();
-    this.cantStep = this.steps.length;
+    console.log(this.optionSeleted)
     this.optionVacia = {idOption: 1, idStep: 1, ID: this.ID, name: '' , img_src:'../assets/images/options/Full-Front1.jpg', price: 0};
   }
 
+  // GETONE 
+
   getObra(): void {
-    this.ObraService.getObra(this.idObra).subscribe((obra: Obra) => this.obra = obra)
+    this.ObraService.getObra(this.idObra).subscribe((obra: Obra[]) => this.obra = obra[0])
   }
 
-  getObras() {
-    return this.ObraService.getObras().subscribe((obras: Obra[]) => this.obras = obras);
+  getOption(idStep: number, idOption: number): void {
+    this.StepService.getOption(this.ID, idStep, idOption).subscribe((option: Option[]) => this.option = option[0])
   }
-  
+
+  getOptionCGI(idStep: number, idOption: number): void {
+    this.StepService.getOption(this.ID, idStep, idOption).subscribe((option: Option[]) => this.option = option[0])
+  }
+
+  //GETALL
+
   getSteps() {
     //this.stepService.getPasos(this.idObra, this.idPiso, this.idDepto).subscribe(steps => this.steps = steps)
     return this.StepService.getPasos(this.idObra, this.idPiso, this.idDepto).subscribe((steps: Step[]) => this.steps = steps)
@@ -90,19 +97,27 @@ export class CotizacionComponent implements OnInit {
     this.StepService.getOptions(this.ID).subscribe((options: Option[]) => this.options = options)
   }
 
-  getOption(idStep: number, idOption: number): void {
-    console.log(this.ID,idStep,idOption)
-    this.StepService.getOption(this.ID, idStep, idOption).subscribe((option: Option) => this.option = option)
+  getOptionsCGI() {
+    this.StepService.getOptionsCGI(this.ID, this.nroPaso).subscribe((optionsCGI: OptionCGI[]) => this.optionsCGI = optionsCGI)
+    return this.optionsCGI
   }
 
+  getAmbientes(paso: number) {
+    this.StepService.getAmbientesCGI(this.ID, paso).subscribe((ambientes: ambienteCGI[]) => this.ambientes = ambientes)
+  }
+
+  getPrices() {
+    this.StepService.getPriceCGI(this.ID, this.nroPaso).subscribe((pricesCGI: priceCGI[]) => this.pricesCGI = pricesCGI)
+    return this.pricesCGI
+  }
+
+  //FUNC
   getPasoInicio(): void {
-    this.nroPaso = this.nroPaso + 1
-    this.getOption(this.nroPaso,1);
-    console.log(this.option);  
-    this.optionSeleted = this.option
+    this.nroPaso = this.nroPaso + 1;
+    this.StepService.getOption(this.ID, this.nroPaso, 1).subscribe((option: Option[]) => this.optionSeleted = option[0])
   }
 
-  getPasoSiguiente(optionSelect: Option): void {
+  /*getPasoSiguiente(optionSelect: Option): void {
     
     if (this.cotizacion[this.nroPaso-1] === undefined) {
       this.cotizacion.push(optionSelect)
@@ -114,32 +129,61 @@ export class CotizacionComponent implements OnInit {
     this.nroPaso = this.nroPaso + 1
     
     if (this.cotizacion[this.nroPaso-1] === undefined){
-      this.getOption(this.nroPaso,1);  
+      //this.getOption(this.nroPaso,1);
+      this.StepService.getOption(this.ID, this.nroPaso, 1).subscribe((option: Option[]) => this.optionSeleted = option[0]);  
     }
     else
     {
-      this.getOption(this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+      //this.getOption(this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+      this.StepService.getOption(this.ID, this.nroPaso, this.cotizacion[this.nroPaso-1].idOption).subscribe((option: Option[]) => this.optionSeleted = option[0]);
+    }
+    console.log(this.steps)
+    if (this.steps[this.nroPaso-1].CGI === 1) {
+      this.getAmbientes(this.nroPaso);
     }
     
-    this.optionSeleted = this.option
+    //this.optionSeleted = this.option
     
-  }
+    
+  }*/
 
 
-  getPasoAnterior(): void {
+  /*getPasoAnterior(): void {
     this.nroPaso = this.nroPaso - 1
-    this.getOption(this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
-    this.optionSeleted = this.option
-  }
+    //this.getOption(this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+    this.StepService.getOption(this.ID, this.nroPaso, this.cotizacion[this.nroPaso-1].idOption).subscribe((option: Option[]) => this.optionSeleted = option[0]);
+    //this.optionSeleted = this.option
+  }*/
 
   getPasoSiguienteCGI(): void {
     this.nroPaso = this.nroPaso + 1;
-    let step; 
-    this.StepService.getPaso(this.nroPaso).subscribe((aux: Step) => step = aux);
-    if ( step.CGI === true ) {
-      this.getOption(this.nroPaso,1);
+    let step: Step = this.steps[this.nroPaso-1];
+    console.log(step)
+    console.log(this.nroPaso, this.optionSeleted) 
+    console.log(step.CGI)
+    //this.StepService.getPaso(this.ID ,this.nroPaso).subscribe((aux: Step[]) => step = aux[0]);
+    if ( step.CGI == 0 ) {
+      //this.getOption(this.nroPaso,1);
+      console.log('AAAAAAAAAAAAA')
+      if (this.cotizacion[this.nroPaso-1] === undefined){
+        //this.getOption(this.nroPaso,1);
+        console.log('BBBBBBBBBBBBBBBBBB')
+        this.StepService.getOption(this.ID, this.nroPaso, 1).subscribe((option: Option[]) => this.optionSeleted = option[0]);
+        console.log(this.optionSeleted)  
+      }
+      else
+      {
+        //this.getOption(this.nroPaso,this.cotizacion[this.nroPaso-1].idOption);
+        this.StepService.getOption(this.ID, this.nroPaso, this.cotizacion[this.nroPaso-1].idOption).subscribe((option: Option[]) => this.optionSeleted = option[0]);
+      }
     }
     else {
+      console.log('a5165465486478797')
+      console.log(this.ID, this.nroPaso);
+      this.StepService.getAmbientesCGI(this.ID, this.nroPaso).subscribe((ambientes: ambienteCGI[]) => this.ambientes = ambientes);
+      this.StepService.getOptionsCGI(this.ID, this.nroPaso).subscribe((opcionesCGI: OptionCGI[]) => this.optionsCGI = opcionesCGI);
+      this.StepService.getPriceCGI(this.ID, this.nroPaso).subscribe((pricesCGI: priceCGI[]) => this.pricesCGI = pricesCGI)
+      //this.StepService.getPriceCGI(this.ID,this.nroPaso, 1)
       let pasoSig: Option = this.cotizacion.find(opcion => opcion.idStep === this.nroPaso);
       if (pasoSig === undefined){
         this.getOption(this.nroPaso, 1);  
@@ -148,17 +192,17 @@ export class CotizacionComponent implements OnInit {
       {
         this.getOption(this.nroPaso,pasoSig.idOption);
       }
-      this.optionSeleted = this.option
+      //this.optionSeleted = this.option
     }
   }
 
-  
   getPasoAnteriorCGI(): void {
     this.nroPaso = this.nroPaso - 1;
-    let step;
-    this.StepService.getPaso(this.nroPaso).subscribe((aux: Step) => step = aux);
+    let step: Step = this.steps[this.nroPaso];
+    this.StepService.getOption(this.ID, this.nroPaso, this.cotizacion[this.nroPaso-1].idOption).subscribe((option: Option[]) => this.optionSeleted = option[0]);
+    //this.StepService.getPaso(this.ID ,this.nroPaso).subscribe((aux: Step) => step = aux);
 
-    if ( step.CGI === true ) {
+    if ( step.CGI === 0 ) {
       this.getOption(this.nroPaso,1);
     } else {
       let pasoPre: Option = this.cotizacion.find(opcion => opcion.idStep === this.nroPaso);  
@@ -169,7 +213,7 @@ export class CotizacionComponent implements OnInit {
   }
 
   llenarLista (optionSelect) {
-    let op: Option = this.cotizacion.find(opcion => opcion.idStep === this.nroPaso);
+    let op: Option = this.cotizacion.find(opcion => opcion.idStep == this.nroPaso);
     if (op === undefined) {
       this.cotizacion.push(optionSelect)
     }
@@ -190,9 +234,9 @@ export class CotizacionComponent implements OnInit {
   }
 
   getPriceTotal() {
-    var total = 0;
+    var total: number = 0;
     for (var a of this.cotizacion) {
-      total += a.price
+      total += +a.price
     }
     return total
   }
@@ -209,34 +253,17 @@ export class CotizacionComponent implements OnInit {
 
   openModal() {
     this.modalRef = this.modalService.open(ModalComponent, {
-     modalClass: 'modal-xl',  data: { cotizacion: this.cotizacion },
+    modalClass: 'modal-xl',  data: { cotizacion: this.cotizacion },
     });
   }
 
   
 
-  getOptionCGI(idStep: number, idOption: number): void {
-    this.StepService.getOption(this.ID, idStep, idOption).subscribe((option: Option) => this.option = option)
-  }
 
-  ObtenerAmbientes() {
-    this.StepService.getAmbientesCGI(this.idObra, this.idPiso, this.idDepto, this.nroPaso).subscribe(ambientes => this.ambientes = ambientes)
-    return this.ambientes
-  }
-
-  getPrices(idCGI: number) {
-    this.StepService.getPriceCGI(this.idObra, this.idPiso, this.idDepto, this.nroPaso, idCGI).subscribe(pricesCGI => this.pricesCGI = pricesCGI)
-    return this.pricesCGI
-  }
-
-  ObtenerOptionsCGI() {
-    this.StepService.getOptionsCGI(this.idObra, this.idPiso, this.idDepto, this.nroPaso).subscribe(optionsCGI => this.optionsCGI = optionsCGI)
-    return this.optionsCGI
-  }
 
   onCheckboxChange(event: any, optionSelect: priceCGI, titulo: string) {
-    this.StepService.getAmbienteCGI(optionSelect.idObra, this.idPiso, this.idDepto, optionSelect.idStep, optionSelect.idAmbiente).subscribe(ambiente => this.ambiente = ambiente)
-    this.StepService.getOptionCGI(optionSelect.idObra, this.idPiso, this.idDepto, optionSelect.idStep, optionSelect.idCGI).subscribe(optionCGI => this.optionCGI = optionCGI)
+    this.StepService.getAmbienteCGI(optionSelect.ID, optionSelect.idStep, optionSelect.idAmbiente).subscribe((ambiente: ambienteCGI[]) => this.ambiente = ambiente[0])
+    this.StepService.getOptionCGI(optionSelect.ID, optionSelect.idStep, optionSelect.idCGI).subscribe((optionCGI: OptionCGI[]) => this.optionCGI = optionCGI[0])
     let idop = optionSelect.idCGI.toString().concat(optionSelect.idAmbiente.toString())
     var optCGI: Option 
     /* $$$$$ */optCGI = { idOption: +idop, ID: this.ID, idStep: optionSelect.idStep, name: this.optionCGI.name + ' | ' + this.ambiente.name, price: optionSelect.price, type: "CGI", tittle: titulo};
@@ -245,11 +272,6 @@ export class CotizacionComponent implements OnInit {
     } else {
       this.cotizacion = this.cotizacion.filter((item) => (optCGI.ID !== item.ID || optCGI.idStep !== item.idStep || optCGI.idOption !== item.idOption)) /* ########## */ 
     }
-  }
-
-  getAmbiente() {
-    this.StepService.getAmbientesCGI(this.idObra, this.idPiso, this.idDepto, this.nroPaso).subscribe(ambientes => this.ambientes = ambientes)
-    return this.ambientes
   }
 
   mostrarTabla() {
@@ -280,6 +302,11 @@ export class CotizacionComponent implements OnInit {
     this.dataForm = dataForm;
     console.log(this.dataForm)
     console.log(this.cotizacion)
+  }
+
+  getRowPrices(idCGI: number) {
+    let prices: priceCGI[] = this.pricesCGI.filter(prices => prices.idCGI === idCGI)
+    return prices 
   }
 
 }

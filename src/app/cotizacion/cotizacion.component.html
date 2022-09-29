@@ -5,7 +5,7 @@
 <div class="row responsive" style="justify-content: center;">
     <mat-horizontal-stepper class="col-md-11 cuadro" headerPosition = "bottom">
       
-      <mat-step label="{{step.name}}" *ngFor="let step of steps">
+      <mat-step label="{{step.name}}{{ step.CGI }}" *ngFor="let step of steps">
         <div class="row" *ngIf="step.CGI == 0; else elseCGI">  
           <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-fuild" *ngIf="step.CGI == 0">
             <div class="col-md-3 columna-options">
@@ -15,8 +15,8 @@
                   <div class="btn-group">
                     <button class="btn boton-pn fst-italic" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
                     <ng-template #elseBlock1><button class="btn boton-pn fst-italic" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
-                
-                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn boton-pn fst-italic" (click)="openModal()">
+
+                      <button *ngIf="step.idStep == steps.length; else elseBlock2" class="btn boton-pn fst-italic" (click)="openModal()">
                         Conclude
                       </button>
 
@@ -98,7 +98,7 @@
                     <button class="btn btn boton-pn fst-italic" *ngIf="step.idStep == 1; else elseBlock1" mat-button matStepperPrevious disabled>Previous</button>
                     <ng-template #elseBlock1><button class="btn btn boton-pn fst-italic" mat-button matStepperPrevious (click)="getPasoAnteriorCGI()">Previous</button></ng-template>
                 
-                      <button *ngIf="step.idStep == cantStep; else elseBlock2" class="btn btn boton-pn fst-italic" (click)="openModal()">
+                      <button *ngIf="step.idStep == steps.length; else elseBlock2" class="btn btn boton-pn fst-italic" (click)="openModal()">
                         Conclude
                       </button>
                 
@@ -115,11 +115,11 @@
                                 <thead>
                                   <tr>
                                     <th style="background-color: #622674;"></th>
-                                    <th *ngFor="let a of ObtenerAmbientes()">{{a.name}}</th>
+                                    <th *ngFor="let ambiente of ambientes">{{ambiente.name}}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let complete of ObtenerOptionsCGI()">
+                                  <tr *ngFor="let complete of optionsCGI">
                                     <th>
                                       <div class="row">
                                         <div class="col-6 col-sm-9">{{ complete.name }}</div>
@@ -127,7 +127,7 @@
                                       </div>
                                     </th>
                                     
-                                    <th *ngFor="let a of getPrices(complete.idCGI); let i = index">
+                                    <th *ngFor="let a of getRowPrices(complete.idCGI); let i = index">
                                       <input mdbCheckbox type="checkbox" class="btn-check" id="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i + a.price}}" 
                                       autocomplete="off" name="chek{{a.idStep + a.idObra + a.idAmbiente + a.idCGI + i}}" [checked]="getButtonCGI(a.idAmbiente, a.idCGI)" 
                                       (change)="onCheckboxChange($event, a, step.name)"/>
@@ -267,3 +267,9 @@
   <div> 
     
   </div> -->
+<div *ngFor="let a cotizacion">
+  <h1>{{ a.name }}</h1>
+</div>
+<h1>{{nroPaso}}</h1>
+<h1>{{optionSeleted.img_src}}</h1>
+AAAAAAAAAA

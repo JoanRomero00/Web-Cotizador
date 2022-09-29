@@ -16,7 +16,7 @@ API: string = 'http://localhost/cotizador_web/'
   }
 
   getObra(idObra: number) {
-    return this.http.get(this.API+"?getObra="+idObra)
+    return this.http.get(this.API+"?getObra="+idObra);
   }
 
   //getObra(id: number): Observable<Obra> {
