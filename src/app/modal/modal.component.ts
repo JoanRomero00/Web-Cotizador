@@ -43,17 +43,17 @@ export class ModalComponent {
   }
 
   sendmail(opciones: Option[], datos: any) {
-    let html = '<h1>COTIZADOR</h1>'
+    let html = '<h1>COTIZADOR</h1><br><h2>You selection</h2>'
     let total = 0
     for (var a of opciones) {
           console.log(a.name)
           if (a.name != '') {
-            let aux = '<div><h2>' + a.name + ' | Price: ' + a.price + '</h2></div>'
+            let aux = '<div><h2>-' + a.name + ' | Price: ' + a.price + '</h2></div>'
             html = html + aux
-            total = total + a.price
+            total = total + +a.price
           }
     }
-    html = html + '<h1>* Price: $' + total.toString() + '</h1>'
+    html = html + '<br><h1>* Total Price: $' + total.toString() + '</h1>' + '<h1>¡Gracias por su elección!</h2>'
     const mailOptions = {
       from: "COTIZADOR",
       to: datos['email'],

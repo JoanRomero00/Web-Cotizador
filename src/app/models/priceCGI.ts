@@ -4,5 +4,5 @@ export interface priceCGI {
     idStep: number;
     idAmbiente: number;
     price: number;
-    check?: boolean;
+    checkPrice?: boolean;
 }

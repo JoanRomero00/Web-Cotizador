@@ -7,6 +7,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'RENO Cotizador';
+  title = 'Cotizador Web';
   constructor(private _formBuilder: FormBuilder) {}
 }

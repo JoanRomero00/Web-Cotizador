@@ -7,7 +7,7 @@
       
       <mat-step label="{{step.name}}{{ step.CGI }}" *ngFor="let step of steps">
         <div class="row" *ngIf="step.CGI == 0; else elseCGI">  
-          <img src="{{ optionSeleted.img_src }}" class="col-md-9 img-fuild" *ngIf="step.CGI == 0">
+          <img src="{{ optionSeleted?.img_src }}" class="col-md-9 img-fuild" *ngIf="step.CGI == 0">
             <div class="col-md-3 columna-options">
               <div  data-mdb-spy="scroll" data-mdb-target="#scrollspy1" data-mdb-offset="0">
 
@@ -70,7 +70,7 @@
                     <br>
                     <div>
                     <ul class="fst-italic precio-col-objects" *ngFor="let a of mostrarTabla()">
-                        <li>{{ a.name }} <span style="float:right;">${{ a.price }} &nbsp;&nbsp;</span></li>
+                        <li *ngIf="a.name != ''">{{ a.name }} <span style="float:right;">${{ a.price }} &nbsp;&nbsp;</span></li>
                     </ul>    
                     </div>    
                     <div class="precio-col-comprar">
@@ -267,9 +267,12 @@
   <div> 
     
   </div> -->
-<div *ngFor="let a cotizacion">
-  <h1>{{ a.name }}</h1>
-</div>
-<h1>{{nroPaso}}</h1>
-<h1>{{optionSeleted.img_src}}</h1>
-AAAAAAAAAA
+  <!-- <div class="text-center">
+    <div *ngFor="let a of cotizacion">
+      <h1>{{ a.name }} | {{ a.img_src }}</h1>
+      <h3>{{ a.idOption }} | step: {{ a.idStep }}</h3>
+    </div>
+    <h1>{{nroPaso}}</h1>
+    <h1>{{optionSeleted?.img_src}}</h1>
+    AAAAAAAAAA
+  </div> -->
