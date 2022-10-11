@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -10,53 +11,45 @@ export class StepService {
 
     constructor(private http: HttpClient) { }
 
-    API: string = 'http://localhost/cotizador_web/'
+    API: string = environment.baseUrl
 
     //getPasos(idObra: number, idPiso: string, idDepto: string): Observable<Step[]> {
     //  return of(STEPS.filter(steps => steps.idObra === idObra && steps.idPiso === idPiso && steps.idDepto === idDepto));
     //}
 
     getPasos(idObra: number, idPiso: string, idDepto: string) {
-      let data: String = idObra.toString() + '-' + idPiso + '-' + idDepto;
-      return this.http.get(this.API+"?getPasos="+data)
+      return this.http.get(this.API+"getPasos/" + idObra + "/" + idPiso + "/" + idDepto)
     }
 
     getPaso(ID: string, idStep: number) {
-      let data = ID + '-' + idStep.toString()
-      return this.http.get(this.API+"?getPaso="+data);
+      return this.http.get(this.API+"getPaso/" + ID + "/" + idStep);
     }
 
     getOptions(ID: string) {
-      return this.http.get(this.API+"?getOptions="+ID);
+      return this.http.get(this.API+"getOptions/" + ID);
     }
 
     getOption(ID: string, idStep: number, idOption: number) {
-      let data: String = ID + '-' + idStep.toString() + '-' + idOption.toString();
-      return this.http.get(this.API+"?getOption="+data);
+      return this.http.get(this.API+"getOption/" + ID + "/" + idStep + "/" + idOption);
     }
 
     getOptionsCGI(ID: string, idStep: number) {
-      let data: String = ID + '-' + idStep.toString();
-      return this.http.get(this.API+"?getOptionsCGI="+data);
+      return this.http.get(this.API+"getOptionsCGI/" + ID + "/" + idStep);
     }
 
     getOptionCGI(ID: string, idStep: number, idCGI: number) {
-      let data: String = ID + '-' + idStep.toString() + '-' + idCGI.toString();
-      return this.http.get(this.API+"?getOptionCGI="+data);
+      return this.http.get(this.API+"getOptionCGI/" + ID + "/" + idStep + "/" + idCGI);
     }
 
     getAmbientesCGI(ID: string, idStep: number) {
-      let data: String = ID + '-' + idStep.toString();
-      return this.http.get(this.API+"?getAmbientesCGI="+data);
+      return this.http.get(this.API+"getAmbientesCGI/" + ID + "/" + idStep);
     }
 
     getAmbienteCGI(ID: string, idStep: number, idAmbiente: number) {
-      let data: String = ID + '-' + idStep.toString() + '-' + idAmbiente.toString();
-      return this.http.get(this.API+"?getAmbienteCGI="+data);
+      return this.http.get(this.API+"getAmbienteCGI/" + ID + "/" + idStep + "/" + idAmbiente);
     }
 
     getPriceCGI(ID: string, idStep: number) {
-      let data: String = ID + '-' + idStep.toString();
-      return this.http.get(this.API+"?getPricesCGI="+data);
+      return this.http.get(this.API+"getPricesCGI/" + ID + "/" + idStep);
     }
   }
